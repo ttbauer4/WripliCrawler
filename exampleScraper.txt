@@ -1,0 +1,25 @@
+import pandas as pd
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
+
+driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
+driver.get('https://techcrunch.com/')
+
+headlines = []
+links = []
+content = driver.page_source
+soup=BeautifulSoup(content,features="lxml")
+
+for x in soup.findAll(attrs={'class':'post-block__title__link'}):
+    headlines.append(x.text)
+
+for y in soup.findAll(attrs={'class':'post-block__title__link'}):
+    href = y.get('href')
+    links.append('https://techcrunch.com'+href)
+
+df = pd.DataFrame({'Today\'s Headlines': headlines, 'Links':links})
+df.to_csv('headlines.csv', index=False, encoding='utf-8')
+
+driver.close()

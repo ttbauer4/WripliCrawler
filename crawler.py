@@ -13,10 +13,12 @@ __status__ = 'Development'
 
 import secrets
 import requests
-import random
 import pandas as pd
 from bs4 import BeautifulSoup
 from lxml import html
+from selenium import webdriver
+from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
 
 url = 'https://www.wripli.com'
 
@@ -41,7 +43,7 @@ cookies = login_req.cookies
 sample = ['4C11AEF90AB0']
 
 random_valve = secrets.choice(sample)
-soup = BeautifulSoup(url + '/Editor/Performance/?macAddress=' + random_valve, 'html.parser')
+soup = BeautifulSoup(session.get(url + '/Editor/Performance/?macAddress=').text + random_valve, 'html.parser')
 
 # Verify successful page navigation
 print(soup.find('div', {'class','row pgcontent'}))
