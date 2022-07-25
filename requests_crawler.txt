@@ -1,0 +1,51 @@
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+''' crawler.py: crawls Wripli stage site;
+    simulates daily user activity and logs data
+    automated web scraping process run regularly
+'''
+
+__author__ = 'Trenton Bauer'
+__version__ = '1.0.0'
+__email__ = 'trenton.bauer@gmail.com'
+__status__ = 'Development'
+
+import secrets
+import requests
+from bs4 import BeautifulSoup
+
+    with requests.Session() as s:
+
+        csrf_token = s.get('https://wripli.com/Account/Login?ReturnUrl=%\2F&id=loginForm').cookies['__RequestVerificationToken']
+        ARRAffinity_cookie = s.get('https://wripli.com/Account/Login?ReturnUrl=%\2F&id=loginForm').cookies['ARRAffinity']
+        ARRAffinitySameSite_cookie = s.get('https://wripli.com/Account/Login?ReturnUrl=%\2F&id=loginForm').cookies['ARRAffinitySameSite_cookie']
+
+        s.headers = {'User-Agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+        'Content-Type' : 'application/x-www-form-urlencoded',
+        'ARRAffinity' : ARRAffinity_cookie,
+        'ARRAffinity' : ARRAffinitySameSite_cookie
+        }
+
+        payload = {
+        #    '__RequestVerificationToken' : csrf_token,
+            'IsMobile' : 'False',
+            'Email' : 'trenton.bauer@gmail.com',
+            'Password' : 'P@ssw0rd'
+        }
+
+        post = s.post('https://wripli.com/Account/Login?ReturnUrl=%\2F&id=loginForm', data = payload)
+
+        response = s.get('https://wripli.com/home/WR')
+        html = response.text
+
+        print(html)
+    ### Begin Scrape ###
+    sample = ['4C11AEF90AB0']
+    random_valve = secrets.choice(sample)
+
+    soup = BeautifulSoup(post.text, 'html.parser')
+
+    # Verify successful page navigation
+    # print(soup.find('div'))
