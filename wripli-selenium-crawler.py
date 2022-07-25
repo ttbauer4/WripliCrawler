@@ -47,10 +47,16 @@ for x in soup.findAll('h5'):
     timestamp.append(strftime("%Y-%m-%d %H:%M:%S", localtime()))
 
 
-FilePath = ''
+filePath = 'WripliData.xlsx'
+workbook = load_workbook(filePath)
 
 row_headers = ['Assigned Valves: Online', 'Assigned Valves: Offline', 'Assigned Valves: Inactive', 'Unassigned Valves', 'Total Dealers']
+writer = pd.ExcelWriter(filePath, engine = 'openpyxl')
+writer.book = workbook
+
 df = pd.DataFrame({'Time (YYYY-MM-DD HH:MM:SS)' : timestamp ,'Category' : row_headers , 'Values' : homepage_titlecard_values})
-df.to_excel('data.xlsx', index=False, encoding='utf-8')
+df.to_excel(writer, filePath, index=False, encoding='utf-8')
+writer.save()
+writer.close()
 
 driver.close()
