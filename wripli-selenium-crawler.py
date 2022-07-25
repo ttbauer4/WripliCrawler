@@ -13,11 +13,13 @@ __status__ = 'Development'
 
 import time
 import pandas as pd
+from time import localtime, strftime
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
+from openpyxl import load_workbook
 from openpyxl.workbook import Workbook
 
 driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
@@ -38,12 +40,17 @@ submit.click()
 content = driver.page_source
 soup=BeautifulSoup(content,features="lxml")
 
+timestamp = []
 homepage_titlecard_values = []
 for x in soup.findAll('h5'):
     homepage_titlecard_values.append(x.text)
+    timestamp.append(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+
+
+FilePath = ''
 
 row_headers = ['Assigned Valves: Online', 'Assigned Valves: Offline', 'Assigned Valves: Inactive', 'Unassigned Valves', 'Total Dealers']
-df = pd.DataFrame({'' : row_headers , 'Values' : homepage_titlecard_values})
+df = pd.DataFrame({'Time (YYYY-MM-DD HH:MM:SS)' : timestamp ,'Category' : row_headers , 'Values' : homepage_titlecard_values})
 df.to_excel('data.xlsx', index=False, encoding='utf-8')
 
 driver.close()
