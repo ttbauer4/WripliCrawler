@@ -220,3 +220,4 @@ JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeE
 2022-07-25 14:19:31.045 plugin-container[4214:79175] nil host used in call to allowsAnyHTTPSCertificateForHost:
 2022-07-25 14:19:31.046 plugin-container[4214:79186] nil host used in call to allowsSpecificHTTPSCertificateForHost
 2022-07-25 14:19:31.046 plugin-container[4214:79186] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658759650560	Marionette	INFO	Stopped listening on port 54302
