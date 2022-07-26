@@ -11,15 +11,14 @@ __version__ = '1.0.0'
 __email__ = 'trenton.bauer@gmail.com'
 __status__ = 'Development'
 
-import pandas as pd
+import csv
 from time import localtime, strftime
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
-from openpyxl import load_workbook
-from openpyxl.utils.dataframe import dataframe_to_rows
+from csv import writer
 
 # make Firefox headless
 fireFoxOptions = webdriver.FirefoxOptions()
@@ -45,20 +44,12 @@ submit.click()
 content = driver.page_source
 soup=bs(content,features="lxml")
 
-timestamp = []
-row_headers = ['Assigned Valves: Online', 'Assigned Valves: Offline', 'Assigned Valves: Inactive', 'Unassigned Valves', 'Total Dealers']
-homepage_titlecard_values = []
-for x in soup.findAll('h5'):
-    homepage_titlecard_values.append(x.text)
-    timestamp.append(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+filePath = 'WripliData.csv'
+hdrs = ['Timestamp','Category','Values']
 
-filePath = 'WripliData.xlsx'
-wb = load_workbook(filePath)
-writer = pd.ExcelWriter(filePath, engine = 'openpyxl', mode='a', if_sheet_exists = 'overlay')
-writer.book = wb
-df1 = pd.DataFrame({'Time (YYYY-MM-DD HH:MM:SS)' : timestamp ,'Category' : row_headers , 'Values' : homepage_titlecard_values})
-df1.to_excel(writer, sheet_name='Homepage', index=False)
-writer.save()
-writer.close()
+with open(filePath, 'a', newline='') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow()
+    file.close()
 
 driver.close()
