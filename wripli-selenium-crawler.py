@@ -54,13 +54,11 @@ for x in soup.findAll('h5'):
 
 filePath = 'WripliData.xlsx'
 wb = load_workbook(filePath)
-writer = pd.ExcelWriter(filePath, engine = 'openpyxl')
+writer = pd.ExcelWriter(filePath, engine = 'openpyxl', mode='a', if_sheet_exists = 'overlay')
 writer.book = wb
-
 df1 = pd.DataFrame({'Time (YYYY-MM-DD HH:MM:SS)' : timestamp ,'Category' : row_headers , 'Values' : homepage_titlecard_values})
-
-df1.to_excel(writer, sheet_name=strftime("%Y-%m-%d %H.%M.%S", localtime()))
-
+df1.to_excel(writer, sheet_name='Homepage', index=False)
 writer.save()
 writer.close()
+
 driver.close()
