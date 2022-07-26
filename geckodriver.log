@@ -1480,3 +1480,775 @@ Read port: 53065
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileObMbB8/search.json.mozlz4", (void 0)))
 DevTools listening on ws://localhost:53060/devtools/browser/caf60a3b-0261-42b1-8bfa-2941c4fb88f8
+1658780641175	geckodriver	INFO	Listening on 127.0.0.1:53216
+1658780641575	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "53217" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileW8usLc"
+*** You are running in headless mode.
+1658780642345	Marionette	INFO	Marionette enabled
+2022-07-25 15:24:02.393 plugin-container[15112:331260] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:24:02.393 plugin-container[15112:331260] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 15:24:02.400 plugin-container[15112:331260] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:24:02.400 plugin-container[15112:331260] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 15:24:02.401 plugin-container[15112:331244] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:24:02.401 plugin-container[15112:331244] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658780642480	Marionette	INFO	Listening on port 53222
+WebDriver BiDi listening on ws://localhost:53217
+Read port: 53222
+1658780642913	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileW8usLc/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53217/devtools/browser/2c61fe6c-287a-4a0d-a6a6-9e313bcc06ec
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-25 20:24:09.849 plugin-container[15124:331566] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:24:09.850 plugin-container[15124:331566] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:24:09.855 plugin-container[15124:331566] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:24:09.855 plugin-container[15124:331566] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:24:09.856 plugin-container[15124:331570] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:24:09.856 plugin-container[15124:331570] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658780655453	Marionette	INFO	Stopped listening on port 53222
+JavaScript error: resource://services-settings/Utils.jsm, line 237: TypeError: NetworkError: Network request failed
+1658780688639	geckodriver	INFO	Listening on 127.0.0.1:53283
+1658780689044	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "53284" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileDbTlhY"
+*** You are running in headless mode.
+2022-07-25 15:24:49.611 plugin-container[15165:332591] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:24:49.611 plugin-container[15165:332591] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 15:24:49.642 plugin-container[15165:332591] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:24:49.642 plugin-container[15165:332591] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 15:24:49.643 plugin-container[15165:332593] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:24:49.643 plugin-container[15165:332593] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658780689679	Marionette	INFO	Marionette enabled
+1658780689731	Marionette	INFO	Listening on port 53289
+WebDriver BiDi listening on ws://localhost:53284
+Read port: 53289
+1658780690321	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileDbTlhY/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53284/devtools/browser/54828b03-c32b-414c-80b2-6f1e7dc3260d
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-25 20:25:02.193 plugin-container[15175:332956] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:25:02.193 plugin-container[15175:332956] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:25:02.200 plugin-container[15175:332956] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:25:02.200 plugin-container[15175:332956] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:25:02.200 plugin-container[15175:332961] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:25:02.200 plugin-container[15175:332961] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658780706688	Marionette	INFO	Stopped listening on port 53289
+1658780882552	geckodriver	INFO	Listening on 127.0.0.1:53384
+1658780882919	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "53385" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile5UN4Is"
+*** You are running in headless mode.
+2022-07-25 15:28:03.603 plugin-container[15275:335928] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:28:03.604 plugin-container[15275:335928] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 15:28:03.648 plugin-container[15275:335928] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:28:03.648 plugin-container[15275:335928] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 15:28:03.648 plugin-container[15275:335929] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 15:28:03.648 plugin-container[15275:335929] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658780883666	Marionette	INFO	Marionette enabled
+1658780883689	Marionette	INFO	Listening on port 53390
+WebDriver BiDi listening on ws://localhost:53385
+Read port: 53390
+1658780884400	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile5UN4Is/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53385/devtools/browser/3926ab22-6888-4043-8857-e6ffcaee449c
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-25 20:28:12.722 plugin-container[15285:336186] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:28:12.722 plugin-container[15285:336186] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:28:12.751 plugin-container[15285:336186] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:28:12.751 plugin-container[15285:336186] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:28:12.751 plugin-container[15285:336188] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:28:12.752 plugin-container[15285:336188] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798214612	geckodriver	INFO	Listening on 127.0.0.1:53721
+1658798214976	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "53722" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilei5W9pk"
+*** You are running in headless mode.
+2022-07-25 20:16:55.717 plugin-container[15658:347331] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:16:55.717 plugin-container[15658:347331] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:16:55.725 plugin-container[15658:347331] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:16:55.725 plugin-container[15658:347331] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:16:55.725 plugin-container[15658:347334] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:16:55.725 plugin-container[15658:347334] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798215850	Marionette	INFO	Marionette enabled
+1658798215995	Marionette	INFO	Listening on port 53727
+Read port: 53727
+WebDriver BiDi listening on ws://localhost:53722
+1658798216488	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilei5W9pk/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53722/devtools/browser/b0307493-42f4-4973-b73a-874e43748a2d
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:17:02.632 plugin-container[15674:347624] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:17:02.632 plugin-container[15674:347624] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:17:02.637 plugin-container[15674:347624] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:17:02.637 plugin-container[15674:347624] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:17:02.637 plugin-container[15674:347632] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:17:02.638 plugin-container[15674:347632] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798323194	geckodriver	INFO	Listening on 127.0.0.1:53975
+1658798323497	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "53976" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile72cHmp"
+*** You are running in headless mode.
+2022-07-25 20:18:45.932 plugin-container[15820:349646] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:18:45.932 plugin-container[15820:349646] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:18:45.956 plugin-container[15820:349646] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:18:45.956 plugin-container[15820:349646] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:18:45.956 plugin-container[15820:349644] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:18:45.956 plugin-container[15820:349644] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798326149	Marionette	INFO	Marionette enabled
+1658798326226	Marionette	INFO	Listening on port 53986
+WebDriver BiDi listening on ws://localhost:53976
+Read port: 53986
+Read port: 53986
+Read port: 53986
+Read port: 53986
+1658798330835	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile72cHmp/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53976/devtools/browser/1cc03678-9325-4ade-b551-1f460231f5d4
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:19:06.697 plugin-container[15867:350131] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:19:06.697 plugin-container[15867:350131] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:19:06.702 plugin-container[15867:350131] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:19:06.702 plugin-container[15867:350131] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:19:06.702 plugin-container[15867:350139] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:19:06.702 plugin-container[15867:350139] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798471618	geckodriver	INFO	Listening on 127.0.0.1:54233
+1658798471991	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "54234" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilempiByF"
+*** You are running in headless mode.
+2022-07-25 20:21:12.994 plugin-container[15956:351801] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:21:12.995 plugin-container[15956:351801] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:21:13.017 plugin-container[15956:351801] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:21:13.017 plugin-container[15956:351801] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:21:13.018 plugin-container[15956:351799] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:21:13.018 plugin-container[15956:351799] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798473069	Marionette	INFO	Marionette enabled
+1658798473279	Marionette	INFO	Listening on port 54252
+WebDriver BiDi listening on ws://localhost:54234
+Read port: 54252
+1658798474683	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilempiByF/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:54234/devtools/browser/1e2fbb75-f8c5-4894-b58a-98236b37a19f
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:21:22.660 plugin-container[15976:352186] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:21:22.660 plugin-container[15976:352186] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:21:22.664 plugin-container[15976:352186] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:21:22.664 plugin-container[15976:352186] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:21:22.665 plugin-container[15976:352192] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:21:22.665 plugin-container[15976:352192] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798512809	geckodriver	INFO	Listening on 127.0.0.1:54385
+1658798513168	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "54386" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileYJuHAj"
+*** You are running in headless mode.
+2022-07-25 20:21:54.225 plugin-container[16041:352911] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:21:54.225 plugin-container[16041:352911] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:21:54.231 plugin-container[16041:352911] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:21:54.231 plugin-container[16041:352911] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:21:54.232 plugin-container[16041:352914] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:21:54.232 plugin-container[16041:352914] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798514308	Marionette	INFO	Marionette enabled
+1658798514345	Marionette	INFO	Listening on port 54391
+WebDriver BiDi listening on ws://localhost:54386
+Read port: 54391
+1658798515201	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileYJuHAj/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:54386/devtools/browser/08f39560-ee55-4e38-bea8-b3488acbb590
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:22:00.817 plugin-container[16055:353247] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:22:00.817 plugin-container[16055:353247] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:22:00.821 plugin-container[16055:353247] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:22:00.822 plugin-container[16055:353247] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:22:00.822 plugin-container[16055:353255] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:22:00.822 plugin-container[16055:353255] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798871379	geckodriver	INFO	Listening on 127.0.0.1:54850
+1658798871707	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "54851" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile7T0c9l"
+*** You are running in headless mode.
+2022-07-25 20:27:52.462 plugin-container[16222:358168] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:27:52.463 plugin-container[16222:358168] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:27:52.469 plugin-container[16222:358168] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:27:52.469 plugin-container[16222:358168] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:27:52.470 plugin-container[16222:358166] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:27:52.470 plugin-container[16222:358166] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798872540	Marionette	INFO	Marionette enabled
+1658798872586	Marionette	INFO	Listening on port 54856
+WebDriver BiDi listening on ws://localhost:54851
+Read port: 54856
+1658798873511	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile7T0c9l/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:54851/devtools/browser/5985a9ec-91f1-4eab-8b26-a0e3c8eb4770
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:28:01.256 plugin-container[16232:358634] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:28:01.257 plugin-container[16232:358634] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:28:01.262 plugin-container[16232:358634] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:28:01.262 plugin-container[16232:358634] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:28:01.263 plugin-container[16232:358653] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:28:01.263 plugin-container[16232:358653] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798969050	geckodriver	INFO	Listening on 127.0.0.1:54968
+1658798969414	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "54969" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileBx6YLh"
+*** You are running in headless mode.
+2022-07-25 20:29:30.158 plugin-container[16316:360270] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:29:30.158 plugin-container[16316:360270] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:29:30.164 plugin-container[16316:360270] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:29:30.164 plugin-container[16316:360270] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:29:30.165 plugin-container[16316:360277] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:29:30.165 plugin-container[16316:360277] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658798970201	Marionette	INFO	Marionette enabled
+1658798970293	Marionette	INFO	Listening on port 54974
+WebDriver BiDi listening on ws://localhost:54969
+Read port: 54974
+1658798970778	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileBx6YLh/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:54969/devtools/browser/9be817e0-bacd-449a-9531-b4d29140d511
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:29:36.223 plugin-container[16332:360568] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:29:36.223 plugin-container[16332:360568] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:29:36.228 plugin-container[16332:360568] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:29:36.228 plugin-container[16332:360568] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:29:36.229 plugin-container[16332:360576] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:29:36.229 plugin-container[16332:360576] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799133126	geckodriver	INFO	Listening on 127.0.0.1:55118
+1658799133496	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55119" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileFiEVHI"
+*** You are running in headless mode.
+2022-07-25 20:32:14.206 plugin-container[16491:363144] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:32:14.206 plugin-container[16491:363144] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:32:14.212 plugin-container[16491:363144] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:32:14.212 plugin-container[16491:363144] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:32:14.212 plugin-container[16491:363147] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:32:14.213 plugin-container[16491:363147] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799134292	Marionette	INFO	Marionette enabled
+1658799134370	Marionette	INFO	Listening on port 55124
+WebDriver BiDi listening on ws://localhost:55119
+Read port: 55124
+1658799134727	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileFiEVHI/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55119/devtools/browser/6c312f24-782e-4eb0-8f7c-6905cd67775c
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:32:19.488 plugin-container[16501:363517] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:32:19.488 plugin-container[16501:363517] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:32:19.493 plugin-container[16501:363517] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:32:19.493 plugin-container[16501:363517] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:32:19.493 plugin-container[16501:363525] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:32:19.493 plugin-container[16501:363525] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799140621	Marionette	INFO	Stopped listening on port 55124
+1658799162548	geckodriver	INFO	Listening on 127.0.0.1:55183
+1658799162924	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55184" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileWPAem4"
+*** You are running in headless mode.
+2022-07-25 20:32:43.564 plugin-container[16575:364185] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:32:43.564 plugin-container[16575:364185] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:32:43.572 plugin-container[16575:364185] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:32:43.572 plugin-container[16575:364185] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:32:43.573 plugin-container[16575:364187] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:32:43.573 plugin-container[16575:364187] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799163627	Marionette	INFO	Marionette enabled
+1658799163654	Marionette	INFO	Listening on port 55190
+WebDriver BiDi listening on ws://localhost:55184
+Read port: 55190
+1658799164408	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileWPAem4/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55184/devtools/browser/40142bb3-04a6-4b5f-a480-22b4400bd76d
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:32:49.628 plugin-container[16586:364494] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:32:49.628 plugin-container[16586:364494] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:32:49.633 plugin-container[16586:364494] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:32:49.633 plugin-container[16586:364494] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:32:49.634 plugin-container[16586:364500] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:32:49.634 plugin-container[16586:364500] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799170689	Marionette	INFO	Stopped listening on port 55190
+1658799240132	geckodriver	INFO	Listening on 127.0.0.1:55379
+1658799240273	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55380" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileoPO7v5"
+*** You are running in headless mode.
+2022-07-25 20:34:01.878 plugin-container[16680:365652] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:34:01.879 plugin-container[16680:365652] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:34:01.910 plugin-container[16680:365652] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:34:01.910 plugin-container[16680:365652] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:34:01.910 plugin-container[16680:365659] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:34:01.910 plugin-container[16680:365659] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799241972	Marionette	INFO	Marionette enabled
+1658799242004	Marionette	INFO	Listening on port 55417
+Read port: 55417
+WebDriver BiDi listening on ws://localhost:55380
+1658799242567	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileoPO7v5/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55380/devtools/browser/50939df2-77d2-4e83-99d5-fff9e9cd098d
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:34:06.921 plugin-container[16687:365939] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:34:06.921 plugin-container[16687:365939] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:34:06.926 plugin-container[16687:365939] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:34:06.926 plugin-container[16687:365939] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:34:06.926 plugin-container[16687:365954] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:34:06.927 plugin-container[16687:365954] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799247577	Marionette	INFO	Stopped listening on port 55417
+1658799594584	geckodriver	INFO	Listening on 127.0.0.1:55598
+1658799594965	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55599" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilexSvPtF"
+*** You are running in headless mode.
+2022-07-25 20:39:55.959 plugin-container[16922:370600] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:39:55.959 plugin-container[16922:370600] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:39:55.970 plugin-container[16922:370600] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:39:55.970 plugin-container[16922:370600] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:39:55.971 plugin-container[16922:370602] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:39:55.971 plugin-container[16922:370602] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799596035	Marionette	INFO	Marionette enabled
+1658799596302	Marionette	INFO	Listening on port 55615
+Read port: 55615
+WebDriver BiDi listening on ws://localhost:55599
+1658799596695	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilexSvPtF/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55599/devtools/browser/d7bd9dd2-8634-4f21-9ba4-7d3e97a7f584
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:40:01.832 plugin-container[16931:370894] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:40:01.833 plugin-container[16931:370894] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:40:01.838 plugin-container[16931:370894] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:40:01.839 plugin-container[16931:370894] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:40:01.839 plugin-container[16931:370899] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:40:01.839 plugin-container[16931:370899] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799869367	geckodriver	INFO	Listening on 127.0.0.1:55718
+1658799869731	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55719" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileE54pz6"
+*** You are running in headless mode.
+2022-07-25 20:44:30.327 plugin-container[17088:373657] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:44:30.327 plugin-container[17088:373657] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:44:30.359 plugin-container[17088:373657] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:44:30.359 plugin-container[17088:373657] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:44:30.359 plugin-container[17088:373659] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:44:30.359 plugin-container[17088:373659] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799870399	Marionette	INFO	Marionette enabled
+1658799870527	Marionette	INFO	Listening on port 55724
+WebDriver BiDi listening on ws://localhost:55719
+Read port: 55724
+1658799871147	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileE54pz6/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55719/devtools/browser/2220ed43-8ab0-441b-b330-b2f71c82e0e9
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:44:36.133 plugin-container[17097:373912] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:44:36.133 plugin-container[17097:373912] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:44:36.138 plugin-container[17097:373912] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:44:36.138 plugin-container[17097:373912] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:44:36.138 plugin-container[17097:373918] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:44:36.138 plugin-container[17097:373918] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658799876950	Marionette	INFO	Stopped listening on port 55724
+1658800011092	geckodriver	INFO	Listening on 127.0.0.1:55814
+1658800011473	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55815" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileNRMDuv"
+*** You are running in headless mode.
+1658800012198	Marionette	INFO	Marionette enabled
+2022-07-25 20:46:52.219 plugin-container[17205:376141] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:46:52.221 plugin-container[17205:376141] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800012246	Marionette	INFO	Listening on port 55821
+2022-07-25 20:46:52.255 plugin-container[17205:376141] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:46:52.255 plugin-container[17205:376141] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:46:52.255 plugin-container[17205:376143] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:46:52.255 plugin-container[17205:376143] nil host used in call to allowsAnyHTTPSCertificateForHost:
+WebDriver BiDi listening on ws://localhost:55815
+Read port: 55821
+1658800012963	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileNRMDuv/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55815/devtools/browser/3e08e048-50b3-4f2f-b9a8-92a7cb1d331a
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:46:58.336 plugin-container[17214:376448] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:46:58.336 plugin-container[17214:376448] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:46:58.341 plugin-container[17214:376448] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:46:58.341 plugin-container[17214:376448] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:46:58.341 plugin-container[17214:376459] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:46:58.341 plugin-container[17214:376459] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800170170	geckodriver	INFO	Listening on 127.0.0.1:55887
+1658800170548	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55888" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilevVHdsc"
+*** You are running in headless mode.
+2022-07-25 20:49:31.362 plugin-container[17342:378119] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:49:31.362 plugin-container[17342:378119] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:49:31.370 plugin-container[17342:378119] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:49:31.371 plugin-container[17342:378119] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:49:31.371 plugin-container[17342:378121] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:49:31.371 plugin-container[17342:378121] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800171429	Marionette	INFO	Marionette enabled
+1658800171548	Marionette	INFO	Listening on port 55893
+WebDriver BiDi listening on ws://localhost:55888
+Read port: 55893
+1658800171962	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilevVHdsc/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55888/devtools/browser/9366f5b5-8a54-4191-b7fd-43f2e288f403
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:49:36.454 plugin-container[17351:378416] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:49:36.454 plugin-container[17351:378416] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:49:36.460 plugin-container[17351:378416] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:49:36.460 plugin-container[17351:378416] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:49:36.461 plugin-container[17351:378423] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:49:36.461 plugin-container[17351:378423] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800277544	geckodriver	INFO	Listening on 127.0.0.1:55974
+1658800277891	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "55975" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile3W6QPF"
+*** You are running in headless mode.
+2022-07-25 20:51:18.622 plugin-container[17437:379762] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:51:18.622 plugin-container[17437:379762] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800278642	Marionette	INFO	Marionette enabled
+2022-07-25 20:51:18.659 plugin-container[17437:379762] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:51:18.660 plugin-container[17437:379762] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:51:18.660 plugin-container[17437:379764] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:51:18.660 plugin-container[17437:379764] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800278680	Marionette	INFO	Listening on port 55980
+WebDriver BiDi listening on ws://localhost:55975
+Read port: 55980
+1658800279323	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile3W6QPF/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55975/devtools/browser/5115874c-6966-4b96-b0f5-2694931d3c5f
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:51:24.801 plugin-container[17450:380116] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:51:24.802 plugin-container[17450:380116] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:51:24.807 plugin-container[17450:380116] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:51:24.807 plugin-container[17450:380116] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:51:24.807 plugin-container[17450:380124] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:51:24.807 plugin-container[17450:380124] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800477919	geckodriver	INFO	Listening on 127.0.0.1:56109
+1658800478272	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56110" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilesivnpk"
+*** You are running in headless mode.
+2022-07-25 20:54:39.161 plugin-container[17569:382378] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:54:39.162 plugin-container[17569:382378] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:54:39.173 plugin-container[17569:382378] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:54:39.174 plugin-container[17569:382378] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:54:39.175 plugin-container[17569:382380] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:54:39.175 plugin-container[17569:382380] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800479188	Marionette	INFO	Marionette enabled
+1658800479293	Marionette	INFO	Listening on port 56115
+WebDriver BiDi listening on ws://localhost:56110
+Read port: 56115
+1658800479756	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilesivnpk/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56110/devtools/browser/a033fdca-be75-4464-9201-640e4ba82beb
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:54:44.331 plugin-container[17578:382673] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:54:44.332 plugin-container[17578:382673] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:54:44.337 plugin-container[17578:382673] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:54:44.337 plugin-container[17578:382673] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:54:44.338 plugin-container[17578:382681] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:54:44.338 plugin-container[17578:382681] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800484911	Marionette	INFO	Stopped listening on port 56115
+JavaScript error: resource://services-settings/Utils.jsm, line 237: TypeError: NetworkError: Network request failed
+1658800713401	geckodriver	INFO	Listening on 127.0.0.1:56223
+1658800713800	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56224" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileeKFKTW"
+*** You are running in headless mode.
+2022-07-25 20:58:34.550 plugin-container[17741:386552] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:58:34.551 plugin-container[17741:386552] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:58:34.557 plugin-container[17741:386552] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:58:34.557 plugin-container[17741:386552] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 20:58:34.557 plugin-container[17741:386559] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 20:58:34.557 plugin-container[17741:386559] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800714615	Marionette	INFO	Marionette enabled
+1658800714798	Marionette	INFO	Listening on port 56230
+WebDriver BiDi listening on ws://localhost:56224
+Read port: 56230
+1658800715134	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileeKFKTW/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56224/devtools/browser/f540fb14-b687-4fab-aa90-b3402e946048
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 01:58:40.355 plugin-container[17751:386836] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:58:40.356 plugin-container[17751:386836] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:58:40.361 plugin-container[17751:386836] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:58:40.361 plugin-container[17751:386836] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 01:58:40.361 plugin-container[17751:386847] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 01:58:40.361 plugin-container[17751:386847] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800720643	Marionette	INFO	Stopped listening on port 56230
+1658800820915	geckodriver	INFO	Listening on 127.0.0.1:56325
+1658800821218	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56326" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilesvjIk3"
+*** You are running in headless mode.
+2022-07-25 21:00:22.453 plugin-container[17903:388378] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:00:22.454 plugin-container[17903:388378] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:00:22.464 plugin-container[17903:388378] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:00:22.464 plugin-container[17903:388378] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:00:22.465 plugin-container[17903:388382] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:00:22.465 plugin-container[17903:388382] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800822629	Marionette	INFO	Marionette enabled
+1658800822693	Marionette	INFO	Listening on port 56331
+WebDriver BiDi listening on ws://localhost:56326
+Read port: 56331
+Read port: 56331
+1658800824682	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilesvjIk3/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56326/devtools/browser/7731c256-032f-4575-9efc-de49a51f0cba
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1658800839392	geckodriver	INFO	Listening on 127.0.0.1:56382
+1658800839730	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56383" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileiwSxTW"
+*** You are running in headless mode.
+2022-07-25 21:00:40.449 plugin-container[17941:388920] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:00:40.450 plugin-container[17941:388920] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:00:40.455 plugin-container[17941:388920] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:00:40.455 plugin-container[17941:388920] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:00:40.457 plugin-container[17941:388918] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:00:40.457 plugin-container[17941:388918] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800840491	Marionette	INFO	Marionette enabled
+1658800840529	Marionette	INFO	Listening on port 56388
+WebDriver BiDi listening on ws://localhost:56383
+Read port: 56388
+1658800841209	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileiwSxTW/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56383/devtools/browser/cc372bcd-cbd4-43c4-b480-fd8177f303b5
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 02:00:48.570 plugin-container[17951:389226] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:00:48.571 plugin-container[17951:389226] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:00:48.576 plugin-container[17951:389226] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:00:48.576 plugin-container[17951:389226] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:00:48.576 plugin-container[17951:389233] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:00:48.576 plugin-container[17951:389233] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658800848965	Marionette	INFO	Stopped listening on port 56388
+JavaScript error: resource://gre/modules/UrlClassifierListManager.jsm, line 694: TypeError: this.tablesData[table] is undefined
+1658801081103	geckodriver	INFO	Listening on 127.0.0.1:56451
+1658801081472	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56452" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileaWhKWw"
+*** You are running in headless mode.
+2022-07-25 21:04:42.122 plugin-container[18074:391448] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:04:42.122 plugin-container[18074:391448] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:04:42.154 plugin-container[18074:391448] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:04:42.154 plugin-container[18074:391448] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:04:42.154 plugin-container[18074:391452] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:04:42.154 plugin-container[18074:391452] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801082177	Marionette	INFO	Marionette enabled
+1658801082200	Marionette	INFO	Listening on port 56457
+WebDriver BiDi listening on ws://localhost:56452
+Read port: 56457
+1658801082910	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileaWhKWw/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56452/devtools/browser/2684fccf-e3f2-4ba9-82db-54785be0f510
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 02:04:48.816 plugin-container[18084:391731] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:04:48.817 plugin-container[18084:391731] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:04:48.824 plugin-container[18084:391731] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:04:48.824 plugin-container[18084:391731] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:04:48.824 plugin-container[18084:391738] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:04:48.824 plugin-container[18084:391738] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801224500	geckodriver	INFO	Listening on 127.0.0.1:56536
+1658801224859	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56537" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileA3sPYS"
+*** You are running in headless mode.
+2022-07-25 21:07:05.507 plugin-container[18189:393346] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:07:05.507 plugin-container[18189:393346] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:07:05.512 plugin-container[18189:393346] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:07:05.512 plugin-container[18189:393346] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:07:05.512 plugin-container[18189:393348] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:07:05.512 plugin-container[18189:393348] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801225618	Marionette	INFO	Marionette enabled
+1658801225690	Marionette	INFO	Listening on port 56542
+WebDriver BiDi listening on ws://localhost:56537
+Read port: 56542
+1658801226444	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileA3sPYS/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56537/devtools/browser/8fcd2548-9198-4cfa-8741-607f080d02fb
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 02:07:11.480 plugin-container[18199:393648] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:07:11.481 plugin-container[18199:393648] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:07:11.488 plugin-container[18199:393648] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:07:11.488 plugin-container[18199:393648] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:07:11.488 plugin-container[18199:393656] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:07:11.488 plugin-container[18199:393656] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801260262	geckodriver	INFO	Listening on 127.0.0.1:56602
+1658801260622	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56603" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile16MnKW"
+*** You are running in headless mode.
+1658801261384	Marionette	INFO	Marionette enabled
+1658801261434	Marionette	INFO	Listening on port 56608
+WebDriver BiDi listening on ws://localhost:56603
+Read port: 56608
+2022-07-25 21:07:41.513 plugin-container[18232:394122] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:07:41.514 plugin-container[18232:394122] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:07:41.555 plugin-container[18232:394122] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:07:41.555 plugin-container[18232:394122] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:07:41.558 plugin-container[18232:394144] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:07:41.558 plugin-container[18232:394144] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801262230	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofile16MnKW/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56603/devtools/browser/80888904-81a4-44c6-81ec-df49bcee4fec
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 02:07:46.875 plugin-container[18241:394424] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:07:46.875 plugin-container[18241:394424] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:07:46.880 plugin-container[18241:394424] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:07:46.880 plugin-container[18241:394424] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:07:46.881 plugin-container[18241:394432] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:07:46.881 plugin-container[18241:394432] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801267481	Marionette	INFO	Stopped listening on port 56608
+1658801348121	geckodriver	INFO	Listening on 127.0.0.1:56678
+1658801348428	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56679" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilegL5JHy"
+*** You are running in headless mode.
+2022-07-25 21:09:09.403 plugin-container[18352:395832] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:09:09.403 plugin-container[18352:395832] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:09:09.410 plugin-container[18352:395832] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:09:09.410 plugin-container[18352:395832] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:09:09.410 plugin-container[18352:395846] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:09:09.411 plugin-container[18352:395846] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801349417	Marionette	INFO	Marionette enabled
+1658801349675	Marionette	INFO	Listening on port 56684
+WebDriver BiDi listening on ws://localhost:56679
+Read port: 56684
+1658801350798	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilegL5JHy/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56679/devtools/browser/c401f7be-ff61-4130-9c20-fd1ae2a4d7c1
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 02:09:15.660 plugin-container[18368:396115] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:09:15.661 plugin-container[18368:396115] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:09:15.666 plugin-container[18368:396115] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:09:15.666 plugin-container[18368:396115] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:09:15.666 plugin-container[18368:396119] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:09:15.666 plugin-container[18368:396119] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801355978	Marionette	INFO	Stopped listening on port 56684
+1658801408941	geckodriver	INFO	Listening on 127.0.0.1:56742
+1658801409318	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56743" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileQUfoqQ"
+*** You are running in headless mode.
+2022-07-25 21:10:09.922 plugin-container[18426:396801] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:10:09.922 plugin-container[18426:396801] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:10:09.952 plugin-container[18426:396801] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:10:09.952 plugin-container[18426:396801] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-25 21:10:09.953 plugin-container[18426:396799] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-25 21:10:09.953 plugin-container[18426:396799] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658801409990	Marionette	INFO	Marionette enabled
+1658801410033	Marionette	INFO	Listening on port 56749
+WebDriver BiDi listening on ws://localhost:56743
+Read port: 56749
+1658801410772	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileQUfoqQ/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56743/devtools/browser/37f04276-3bc1-419a-8c02-0978e86c996d
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1658801415561	Marionette	INFO	Stopped listening on port 56749
+2022-07-26 02:10:15.744 plugin-container[18436:397147] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:10:15.745 plugin-container[18436:397147] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:10:15.750 plugin-container[18436:397147] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:10:15.750 plugin-container[18436:397147] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 02:10:15.751 plugin-container[18436:397158] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 02:10:15.751 plugin-container[18436:397158] nil host used in call to allowsAnyHTTPSCertificateForHost:
+JavaScript error: resource://gre/modules/UrlClassifierListManager.jsm, line 694: TypeError: this.tablesData[table] is undefined
+1658850184981	geckodriver	INFO	Listening on 127.0.0.1:57169
+1658850185388	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "57170" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileiXBTit"
+*** You are running in headless mode.
+2022-07-26 10:43:06.353 plugin-container[19563:431269] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:43:06.354 plugin-container[19563:431269] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 10:43:06.359 plugin-container[19563:431269] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:43:06.359 plugin-container[19563:431269] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 10:43:06.360 plugin-container[19563:431267] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:43:06.360 plugin-container[19563:431267] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658850186592	Marionette	INFO	Marionette enabled
+1658850186663	Marionette	INFO	Listening on port 57175
+WebDriver BiDi listening on ws://localhost:57170
+Read port: 57175
+1658850187552	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileiXBTit/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57170/devtools/browser/796cabe9-8c58-4d40-a129-1ceec4d50805
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 15:43:17.779 plugin-container[19572:431776] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:43:17.780 plugin-container[19572:431776] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 15:43:17.784 plugin-container[19572:431776] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:43:17.784 plugin-container[19572:431776] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 15:43:17.785 plugin-container[19572:431782] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:43:17.785 plugin-container[19572:431782] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658850202811	Marionette	INFO	Stopped listening on port 57175
+JavaScript error: resource://services-settings/Utils.jsm, line 237: TypeError: NetworkError: Network request failed
+1658850547082	geckodriver	INFO	Listening on 127.0.0.1:57252
+1658850547450	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "57253" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilenqXs8N"
+*** You are running in headless mode.
+1658850548068	Marionette	INFO	Marionette enabled
+2022-07-26 10:49:08.115 plugin-container[19826:436659] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:49:08.115 plugin-container[19826:436659] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 10:49:08.122 plugin-container[19826:436659] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:49:08.122 plugin-container[19826:436659] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 10:49:08.123 plugin-container[19826:436677] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:49:08.123 plugin-container[19826:436677] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658850548159	Marionette	INFO	Listening on port 57258
+Read port: 57258
+WebDriver BiDi listening on ws://localhost:57253
+1658850548671	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofilenqXs8N/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57253/devtools/browser/722defb1-0434-4573-9556-cee2148be765
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 15:49:15.918 plugin-container[19836:436989] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:49:15.935 plugin-container[19836:436989] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 15:49:15.940 plugin-container[19836:436989] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:49:15.955 plugin-container[19836:436989] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 15:49:15.956 plugin-container[19836:436993] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:49:15.956 plugin-container[19836:436993] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658850797094	geckodriver	INFO	Listening on 127.0.0.1:57329
+1658850797487	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "57330" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileuxkZVK"
+*** You are running in headless mode.
+1658850798147	Marionette	INFO	Marionette enabled
+2022-07-26 10:53:18.196 plugin-container[19932:439378] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:53:18.196 plugin-container[19932:439378] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 10:53:18.203 plugin-container[19932:439378] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:53:18.203 plugin-container[19932:439378] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 10:53:18.203 plugin-container[19932:439380] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 10:53:18.203 plugin-container[19932:439380] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658850798215	Marionette	INFO	Listening on port 57335
+Read port: 57335
+WebDriver BiDi listening on ws://localhost:57330
+1658850798761	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/n1/ywk4091j5xx1hvl49p918s6w0000gn/T/rust_mozprofileuxkZVK/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57330/devtools/browser/d459d6a4-2a1f-482c-8de2-d4d279e86450
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://wripli.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+2022-07-26 15:53:26.267 plugin-container[19942:439773] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:53:26.267 plugin-container[19942:439773] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 15:53:26.272 plugin-container[19942:439773] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:53:26.272 plugin-container[19942:439773] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-07-26 15:53:26.272 plugin-container[19942:439781] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-07-26 15:53:26.272 plugin-container[19942:439781] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1658850811987	Marionette	INFO	Stopped listening on port 57335
+JavaScript error: resource://services-settings/Utils.jsm, line 237: TypeError: NetworkError: Network request failed
