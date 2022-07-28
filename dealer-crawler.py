@@ -210,5 +210,8 @@ def writeToCSV(path: str, delim: str, *args : array):
 writeToCSV(private.wdFilePath, ',', assignedOnline, assignedOffline, assignedInactive, unassigned, 
     totalDealers, unitErrors, usageChartHour, usageChartDay, capRemGraph)
 
+# indicate completion
+print('Complete.')
+
 # close the webdriver
 driver.close()
