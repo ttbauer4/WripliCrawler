@@ -28,7 +28,8 @@ fireFoxOptions = webdriver.FirefoxOptions()
 fireFoxOptions.headless = True
 
 # create new Firefox driver and retreive login site
-driver = webdriver.Firefox(options = fireFoxOptions, service=Service(GeckoDriverManager().install()))
+driver = webdriver.Firefox(options = fireFoxOptions, service=
+    Service(GeckoDriverManager().install()))
 driver.get(private.loginURL)
 
 # login to site
@@ -53,7 +54,8 @@ unassigned = []
 totalDealers = []
 
 '''
-append_home_arrays appends a given value to all arrays which represent data fields found on the homepage.
+append_home_arrays appends a given value to all arrays which represent data 
+    fields found on the homepage.
 
 :param txt: that which is to be appended to the arrays 
 '''
@@ -65,7 +67,8 @@ def append_home_arrays(txt):
     totalDealers.append(txt)
 
 '''
-scrape_home scrapes data from the homepage and appends it to corresponding arrays.
+scrape_home scrapes data from the homepage and appends it to corresponding 
+    arrays.
 
 :param s: a Beautiful Soup object with the home page's source
 '''
@@ -111,7 +114,8 @@ capRemGraph = []
 usageChartDay = []
 
 '''
-append_unit_arrays appends a given value to all arrays which represent data fields found on the unit page.
+append_unit_arrays appends a given value to all arrays which represent data 
+    fields found on the unit page.
 
 :param txt: that which is to be appended to the arrays
 '''
@@ -122,7 +126,8 @@ def append_unit_arrays(txt):
     capRemGraph.append(txt)
 
 '''
-scrape_unit scrapes data from a given unit page and appends it to corresponding arrays.
+scrape_unit scrapes data from a given unit page and appends it to corresponding 
+    arrays.
 
 :param s: a Beautiful Soup object with a unit page's source
 '''
@@ -148,40 +153,52 @@ def scrape_unit(s: bs):
         if s.find('canvas',{'id':'remainingCapacityChart'}) == None:
             capRemGraph.append('data not populated')
             if s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
-                usageChartDay.append('data not populated') # no data is populated
+                usageChartDay.append('data not populated') 
+                # no data is populated
             else:
-                append_dict(s.find_all('script')[26].text,usageChartDay) # only the daily chart is populated
+                append_dict(s.find_all('script')[26].text,usageChartDay) 
+                # only the daily chart is populated
         elif s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
             append_dict(s.find_all('script')[26].text,capRemGraph)
-            usageChartDay.append('data not populated') # only the cap rem graph is populated
+            usageChartDay.append('data not populated') 
+            # only the cap rem graph is populated
         else:
             append_dict(s.find_all('script')[27].text,usageChartDay)
-            append_dict(s.find_all('script')[26].text,capRemGraph) # only the hourly chart is unpopulated
+            append_dict(s.find_all('script')[26].text,capRemGraph) 
+            # only the hourly chart is unpopulated
     elif s.find('canvas',{'id':'remainingCapacityChart'}) == None:
         append_dict(s.find_all('script')[26].text,usageChartHour)
         capRemGraph.append('data not populated')
         if s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
-            usageChartDay.append('data not populated') # only the hourly chart is populated
+            usageChartDay.append('data not populated') 
+            # only the hourly chart is populated
         else:
-            append_dict(s.find_all('script')[27].text,usageChartDay) # only the rem cap chart is unpopulated
+            append_dict(s.find_all('script')[27].text,usageChartDay) 
+            # only the rem cap chart is unpopulated
     elif s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
         usageChartDay.append('data not populated')
         append_dict(s.find_all('script')[26].text,usageChartHour)
-        append_dict(s.find_all('script')[27].text,capRemGraph) # only the daily chart is unpopulated
+        append_dict(s.find_all('script')[27].text,capRemGraph) 
+        # only the daily chart is unpopulated
     else:
         append_dict(s.find_all('script')[26].text,usageChartHour)
         append_dict(s.find_all('script')[27].text,capRemGraph)
-        append_dict(s.find_all('script')[28].text,usageChartDay) # all data is populated
+        append_dict(s.find_all('script')[28].text,usageChartDay) 
+        # all data is populated
 
 '''
-append_dict creates a dictionary from javascript content found on the unit page by extracting corresponding "labels" and "data" fields from given text, then appends that dictionary to a given array
+append_dict creates a dictionary from javascript content found on the unit page 
+    by extracting corresponding "labels" and "data" fields from given text, then 
+    appends that dictionary to a given array
 
 :param script: text from within javascript tags on the unit page
 :param arr: array to which the dictionary is appended
 '''
 def append_dict (script: str, arr: array):
-    labels = script[(script.find('labels:') + 10) : (script.find( '],', script.find('labels:')) - 1)].split('","')
-    data = script[(script.find('data: [') + 7) : script.find( '],', script.find('data: ['))].split(',')
+    labels = script[(script.find('labels:') + 10) : (script.find( '],', 
+        script.find('labels:')) - 1)].split('","')
+    data = script[(script.find('data: [') + 7) : script.find( '],', 
+        script.find('data: ['))].split(',')
     arr.append(dict(zip(labels,data)))
 
 # driver at random unit page
@@ -207,8 +224,9 @@ def writeToCSV(path: str, delim: str, *args : array):
     file.close()
 
 # write scraped data to CSV
-writeToCSV(private.wdFilePath, ',', assignedOnline, assignedOffline, assignedInactive, unassigned, 
-    totalDealers, unitErrors, usageChartHour, usageChartDay, capRemGraph)
+writeToCSV(private.wdFilePath, ',', assignedOnline, assignedOffline, 
+    assignedInactive, unassigned, totalDealers, unitErrors, usageChartHour, 
+    usageChartDay, capRemGraph)
 
 # indicate completion
 print('Complete.')
