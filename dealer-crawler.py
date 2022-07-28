@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-dealer-crawler.py: crawls stage site;
-simulates user activity and logs data
+dealer-crawler.py: crawls stage site from dealer perspective; simulates user 
+activity and logs data
 '''
 
 __author__ = 'Trenton Bauer'
