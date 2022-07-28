@@ -5,7 +5,7 @@
 '''
 
 __author__ = 'Trenton Bauer'
-__version__ = 'V1.0.0'
+__version__ = 'V1.0.1'
 __email__ = 'trenton.bauer@gmail.com'
 __status__ = 'Development'
 
