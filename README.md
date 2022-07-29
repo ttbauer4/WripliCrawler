@@ -12,8 +12,8 @@
   4. Install [Firefox](https://www.mozilla.org/en-US/firefox/new/)
   5. Install [GeckoDriver](https://github.com/mozilla/geckodriver/releases)
   6. Install [Selenium](https://selenium-python.readthedocs.io/installation.html)
-  7. [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository) this repository
+  7. Click **USE THIS TEMPLATE** and create your new repository
   8. Edit private_TEMPLATE.py, satisfying the `TODO` tags
-  9. Rename to private.py
+  9. Rename to private.py (consider placing in the same directory and using .gitignore to avoid compromising privacy)
   10. Run
   11. If you wish to schedule it to run at prescribed times, see [this site.](https://desktop.arcgis.com/en/arcmap/10.7/analyze/python/scheduling-a-python-script-to-run-at-prescribed-times.htm)
