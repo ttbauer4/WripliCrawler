@@ -6,7 +6,7 @@
 
 # TODO: fill metadata
 __author__ = '<YOUR NAME>'
-__version__ = 'V1.0.1'
+__version__ = 'V1.1'
 __email__ = '<YOUR EMAIL>'
 __status__ = '<STATUS>'
 
