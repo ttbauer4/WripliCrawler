@@ -7,7 +7,7 @@ activity and logs data
 '''
 
 __author__ = 'Trenton Bauer'
-__version__ = 'V1.0.1'
+__version__ = 'V1.1'
 __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
 __status__ = 'Prototype'
