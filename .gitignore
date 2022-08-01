@@ -3,5 +3,5 @@ geckodriver.log
 __pycache__/private.cpython-310.pyc
 private.py
 .vscode
-consumer-crawler.py
 WripliData.csv
+consumer-crawler.py
