@@ -148,43 +148,26 @@ def scrape_unit(s: bs):
     unitErrors.append(s.find('span',class_='text-nowrap').text.strip())
     
     # append data from javascript charts/graphs
-    if s.find('canvas',{'id':'hourlyWaterUsageChart'}) == None:
-        usageChartHour.append('data not populated')
-        if s.find('canvas',{'id':'remainingCapacityChart'}) == None:
-            capRemGraph.append('data not populated')
-            if s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
-                usageChartDay.append('data not populated') 
-                # no data is populated
-            else:
-                append_dict(s.find_all('script')[26].text,usageChartDay) 
-                # only the daily chart is populated
-        elif s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
-            append_dict(s.find_all('script')[26].text,capRemGraph)
-            usageChartDay.append('data not populated') 
-            # only the cap rem graph is populated
-        else:
-            append_dict(s.find_all('script')[27].text,usageChartDay)
-            append_dict(s.find_all('script')[26].text,capRemGraph) 
-            # only the hourly chart is unpopulated
-    elif s.find('canvas',{'id':'remainingCapacityChart'}) == None:
-        append_dict(s.find_all('script')[26].text,usageChartHour)
-        capRemGraph.append('data not populated')
-        if s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
-            usageChartDay.append('data not populated') 
-            # only the hourly chart is populated
-        else:
-            append_dict(s.find_all('script')[27].text,usageChartDay) 
-            # only the rem cap chart is unpopulated
-    elif s.find('canvas',{'id':'dailyWaterUsageChart'}) == None:
-        usageChartDay.append('data not populated')
-        append_dict(s.find_all('script')[26].text,usageChartHour)
-        append_dict(s.find_all('script')[27].text,capRemGraph) 
-        # only the daily chart is unpopulated
+        # hourly usage chart
+    if s.find('canvas',{'id':'hourlyWaterUsageChart'}) != None:
+        append_dict(s.find('canvas',{'id':'hourlyWaterUsageChart'})
+            .find_next_sibling().text,usageChartHour)
     else:
-        append_dict(s.find_all('script')[26].text,usageChartHour)
-        append_dict(s.find_all('script')[27].text,capRemGraph)
-        append_dict(s.find_all('script')[28].text,usageChartDay) 
-        # all data is populated
+        usageChartHour.append('data not populated')
+
+        # cap rem graph
+    if s.find('canvas',{'id':'remainingCapacityChart'}) != None:
+        append_dict(s.find('canvas',{'id':'remainingCapacityChart'})
+            .find_next_sibling().text,capRemGraph)
+    else:
+        capRemGraph.append('data not populated')
+
+        # daily usage chart
+    if s.find('canvas',{'id':'dailyWaterUsageChart'}) != None:
+        append_dict(s.find('canvas',{'id':'dailyWaterUsageChart'})
+            .find_next_sibling().text,usageChartDay)
+    else:
+        usageChartDay.append('data not populated')
 
 '''
 append_dict creates a dictionary from javascript content found on the unit page 
@@ -229,7 +212,7 @@ writeToCSV(private.wdFilePath, ',', assignedOnline, assignedOffline,
     usageChartDay, capRemGraph)
 
 # indicate completion
-print('Complete.')
+print('Complete.\n')
 
 # close the webdriver
 driver.close()
