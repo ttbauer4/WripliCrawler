@@ -33,7 +33,7 @@ fireFoxOptions = webdriver.FirefoxOptions()
 fireFoxOptions.headless = True
 
 # create new Firefox driver and retreive login site
-driver = webdriver.Firefox(options = fireFoxOptions, service=
+driver = webdriver.Firefox(options=fireFoxOptions, service=
     Service(GeckoDriverManager().install()))
 driver.implicitly_wait(60)
 
@@ -51,7 +51,7 @@ try:
     key = private.dealerPass
     password.send_keys(key)
 
-    submit= driver.find_element(By.XPATH, '//input[@type="submit"]')
+    submit = driver.find_element(By.XPATH, '//input[@type="submit"]')
     submit.click()
 except:
     traceback.print_exc()
@@ -115,7 +115,7 @@ def scrape_home(s: bs):
 try:
     # driver at homepage
     driver.get(private.homeURL)
-    soup=bs(driver.page_source, 'html.parser')
+    soup = bs(driver.page_source, 'html.parser')
 
     # check for timeout
     if soup.find('form',{'id':'CatchAllForm'}) == None:
@@ -170,24 +170,24 @@ def scrape_unit(s: bs):
     unitErrors.append(s.find('span',class_='text-nowrap').text.strip())
     
     # append data from javascript charts/graphs
-        # hourly usage chart
+    # hourly usage chart
     if s.find('canvas',{'id':'hourlyWaterUsageChart'}) != None:
         append_dict(s.find('canvas',{'id':'hourlyWaterUsageChart'})
-            .find_next_sibling().text,usageChartHour)
+                        .find_next_sibling().text,usageChartHour)
     else:
         usageChartHour.append('data not populated')
 
-        # cap rem graph
+    # cap rem graph
     if s.find('canvas',{'id':'remainingCapacityChart'}) != None:
         append_dict(s.find('canvas',{'id':'remainingCapacityChart'})
-            .find_next_sibling().text,capRemGraph)
+                        .find_next_sibling().text,capRemGraph)
     else:
         capRemGraph.append('data not populated')
 
-        # daily usage chart
+    # daily usage chart
     if s.find('canvas',{'id':'dailyWaterUsageChart'}) != None:
         append_dict(s.find('canvas',{'id':'dailyWaterUsageChart'})
-            .find_next_sibling().text,usageChartDay)
+                        .find_next_sibling().text,usageChartDay)
     else:
         usageChartDay.append('data not populated')
 
@@ -201,16 +201,16 @@ append_dict creates a dictionary from javascript content found on the unit page
 '''
 def append_dict (script: str, arr: array):
     labels = script[(script.find('labels:') + 10) : (script.find( '],', 
-        script.find('labels:')) - 1)].split('","')
+                    script.find('labels:')) - 1)].split('","')
     data = script[(script.find('data: [') + 7) : script.find( '],', 
-        script.find('data: ['))].split(',')
+                  script.find('data: ['))].split(',')
     arr.append(dict(zip(labels,data)))
 
 try:
     # driver at random unit page
     randMac = secrets.choice(private.macArray)
     driver.get(private.unitURL + randMac)
-    soup=bs(driver.page_source,'html.parser')
+    soup = bs(driver.page_source,'html.parser')
 
     # check for timeout
     if soup.find('form',{'id':'CatchAllForm'}) == None:
@@ -232,7 +232,7 @@ writeToCSV writes arrays to a CSV file as rows
 :param delim: string delimiter for writing arrays to rows
 :param *args: variable number of array arguments to be written to given CSV
 '''
-def writeToCSV(path: str, delim: str, *args : array):
+def write_to_csv(path: str, delim: str, *args : array):
     with open(path, 'a', newline='') as file:
         writer = csv.writer(file, delimiter=delim)
         for x in args:
@@ -240,9 +240,9 @@ def writeToCSV(path: str, delim: str, *args : array):
     file.close()
 
 # write scraped data to CSV
-writeToCSV(private.wdFilePath, ',', assignedOnline, assignedOffline, 
-    assignedInactive, unassigned, totalDealers, unitErrors, usageChartHour, 
-    usageChartDay, capRemGraph)
+write_to_csv(private.wdFilePath, ',', assignedOnline, assignedOffline, 
+           assignedInactive, unassigned, totalDealers, unitErrors, 
+           usageChartHour, usageChartDay, capRemGraph)
 
 # close the webdriver
 driver.close()
