@@ -12,16 +12,21 @@ __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
 __status__ = 'Prototype'
 
-from array import array
 import csv
 import private
 import secrets
+import traceback
+from array import array
+from datetime import datetime
 from time import localtime, strftime
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
+
+# time script started running
+kickoff = datetime.now()
 
 # initialize browser options
 fireFoxOptions = webdriver.FirefoxOptions()
@@ -30,21 +35,27 @@ fireFoxOptions.headless = True
 # create new Firefox driver and retreive login site
 driver = webdriver.Firefox(options = fireFoxOptions, service=
     Service(GeckoDriverManager().install()))
-driver.get(private.loginURL)
+driver.implicitly_wait(60)
 
-# login to site
-username = driver.find_element(By.XPATH, '//input[@id="Email"]')
-username.clear()
-key = private.dealerUser
-username.send_keys(key)
+try:
+    driver.get(private.loginURL)
 
-password = driver.find_element(By.XPATH, '//input[@id="Password"]')
-password.clear()
-key = private.dealerPass
-password.send_keys(key)
+    # login to site
+    username = driver.find_element(By.XPATH, '//input[@id="Email"]')
+    username.clear()
+    key = private.dealerUser
+    username.send_keys(key)
 
-submit= driver.find_element(By.XPATH, '//input[@type="submit"]')
-submit.click()
+    password = driver.find_element(By.XPATH, '//input[@id="Password"]')
+    password.clear()
+    key = private.dealerPass
+    password.send_keys(key)
+
+    submit= driver.find_element(By.XPATH, '//input[@type="submit"]')
+    submit.click()
+except:
+    traceback.print_exc()
+    print('EXCEPTION CAUGHT ON LOGIN')
 
 # homepage fields to scrape
 assignedOnline = []
@@ -100,12 +111,23 @@ def scrape_home(s: bs):
     unassigned.append(str(homeValues[3]))
     totalDealers.append(str(homeValues[4]))
 
-# driver at homepage
-driver.get(private.homeURL)
-soup=bs(driver.page_source, 'html.parser')
+ 
+try:
+    # driver at homepage
+    driver.get(private.homeURL)
+    soup=bs(driver.page_source, 'html.parser')
 
-# scrape data from homepage
-scrape_home(soup)
+    # check for timeout
+    if soup.find('form',{'id':'CatchAllForm'}) == None:
+        # scrape data from homepage
+        scrape_home(soup)
+    else:
+        append_home_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+        append_home_arrays('ERROR:')
+        append_home_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+except:
+    traceback.print_exc()
+    print('EXCEPTION CAUGHT WHILE SCRAPING HOME')
 
 # unit page fields to scrape
 unitErrors = []
@@ -184,13 +206,24 @@ def append_dict (script: str, arr: array):
         script.find('data: ['))].split(',')
     arr.append(dict(zip(labels,data)))
 
-# driver at random unit page
-randMac = secrets.choice(private.macArray)
-driver.get(private.unitURL + randMac)
-soup=bs(driver.page_source,'html.parser')
+try:
+    # driver at random unit page
+    randMac = secrets.choice(private.macArray)
+    driver.get(private.unitURL + randMac)
+    soup=bs(driver.page_source,'html.parser')
 
-# scrape data from unit page
-scrape_unit(soup)
+    # check for timeout
+    if soup.find('form',{'id':'CatchAllForm'}) == None:
+        # scrape data from unit page
+        scrape_unit(soup)
+    else:
+        append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+        append_unit_arrays(randMac)
+        append_unit_arrays('ERROR:')
+        append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+except:
+    traceback.print_exc()
+    print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
 
 '''
 writeToCSV writes arrays to a CSV file as rows
@@ -211,8 +244,12 @@ writeToCSV(private.wdFilePath, ',', assignedOnline, assignedOffline,
     assignedInactive, unassigned, totalDealers, unitErrors, usageChartHour, 
     usageChartDay, capRemGraph)
 
-# indicate completion
-print('Complete.\n')
-
 # close the webdriver
 driver.close()
+
+# print execution runtime
+td = datetime.now() - kickoff
+print('Execution took ' + str(td.total_seconds()) + ' seconds.')
+
+# indicate completion
+print('Complete.\n')
