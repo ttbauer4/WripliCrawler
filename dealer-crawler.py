@@ -7,10 +7,10 @@ activity and logs data
 '''
 
 __author__ = 'Trenton Bauer'
-__version__ = 'V1.1'
+__version__ = 'V1.2'
 __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
-__status__ = 'Prototype'
+__status__ = 'Development'
 
 import csv
 import private
@@ -25,6 +25,24 @@ from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
+# prompt user selection
+i = input('\nWould you like to (1) get data from a random unit, (2) get data ' +
+            'from all units, or (3) get data from a specific unit?\n')
+
+# check for valid input
+while i != '1' and i != '2' and i != '3':
+    i = input('invalid input, enter \'1\' or \'2\' or \'3\'\n')
+
+# prompt user to input MAC address
+if i == '3':
+    mac = input('Enter the unit\'s MAC address:\n')
+    valid = False
+    for x in private.macArray:
+        if x == mac:
+            valid = True
+    while not valid:
+        mac = input('invalid mac address not found in macArray; try again:\n')
+
 # time script started running
 kickoff = datetime.now()
 
@@ -38,9 +56,9 @@ driver = webdriver.Firefox(options=fireFoxOptions, service=
 driver.implicitly_wait(60)
 
 try:
+    # login to site
     driver.get(private.loginURL)
 
-    # login to site
     username = driver.find_element(By.XPATH, '//input[@id="Email"]')
     username.clear()
     key = private.dealerUser
@@ -111,7 +129,6 @@ def scrape_home(s: bs):
     unassigned.append(str(homeValues[3]))
     totalDealers.append(str(homeValues[4]))
 
- 
 try:
     # driver at homepage
     driver.get(private.homeURL)
@@ -173,10 +190,20 @@ scrape_unit scrapes data from a given unit page and appends it to corresponding
 :param s: a Beautiful Soup object with a unit page's source
 '''
 def scrape_unit(s: bs):
+    unitErrors.clear()
+    totalUsage.clear()
+    usage.clear()
+    maxFlow.clear()
+    flags.clear()
+    usageChartHour.clear()
+    usageChartDay.clear()
+    capRemGraph.clear()
+
+
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
     append_unit_arrays(curTime)
-    append_unit_arrays(randMac)
+    append_unit_arrays(mac)
     append_unit_arrays(s.find('p',class_='font-weight-bold').text.strip())
 
     # append field labels
@@ -259,25 +286,6 @@ def append_dict_js (script: str, arr: array):
                   script.find('data: ['))].split(',')
     arr.append(dict(zip(labels,data)))
 
-try:
-    # driver at random unit page
-    randMac = secrets.choice(private.macArray)
-    driver.get(private.unitURL + randMac)
-    soup = bs(driver.page_source,'html.parser')
-
-    # check for timeout
-    if soup.find('form',{'id':'CatchAllForm'}) == None:
-        # scrape data from unit page
-        scrape_unit(soup)
-    else:
-        append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
-        append_unit_arrays(randMac)
-        append_unit_arrays('ERROR:')
-        append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
-except:
-    traceback.print_exc()
-    print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
-
 '''
 writeToCSV writes arrays to a CSV file as rows
 
@@ -292,10 +300,84 @@ def write_to_csv(path: str, delim: str, *args : array):
             writer.writerow(x)    
     file.close()
 
-# write scraped data to CSV
+# write homepage data to CSV
 write_to_csv(private.wdFilePath, ',', assignedOnline, assignedOffline, 
-           assignedInactive, unassigned, totalDealers, unitErrors, totalUsage,
-           usage, maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
+    assignedInactive, unassigned, totalDealers)
+
+# get data from a random unit
+if i == '1':
+    try:
+        # driver at random unit page
+        mac = secrets.choice(private.macArray)
+        driver.get(private.unitURL + mac)
+        soup = bs(driver.page_source,'html.parser')
+
+        # check for timeout
+        if soup.find('form',{'id':'CatchAllForm'}) == None:
+            # scrape data from unit page
+            scrape_unit(soup)
+        else:
+            append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+            append_unit_arrays(mac)
+            append_unit_arrays('ERROR:')
+            append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+        
+        # write scraped data to CSV
+        write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+            maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
+    except:
+        traceback.print_exc()
+        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+
+# get data from all units
+elif i == '2':
+    try:
+        for x in private.macArray:
+            # driver at given unit page
+            mac = x
+            driver.get(private.unitURL + mac)
+            soup = bs(driver.page_source,'html.parser')
+
+            # check for timeout
+            if soup.find('form',{'id':'CatchAllForm'}) == None:
+                # scrape data from unit page
+                scrape_unit(soup)
+            else:
+                append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+                append_unit_arrays(mac)
+                append_unit_arrays('ERROR:')
+                append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+            
+            # write scraped data to CSV
+            write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+                maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
+    except:
+        traceback.print_exc()
+        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+
+# get data from a specific unit
+elif i == '3':
+    try:
+        # driver at given unit page
+        driver.get(private.unitURL + mac)
+        soup = bs(driver.page_source,'html.parser')
+
+        # check for timeout
+        if soup.find('form',{'id':'CatchAllForm'}) == None:
+            # scrape data from unit page
+            scrape_unit(soup)
+        else:
+            append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+            append_unit_arrays(mac)
+            append_unit_arrays('ERROR:')
+            append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+        
+        # write scraped data to CSV
+        write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+            maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
+    except:
+        traceback.print_exc()
+        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
 
 # close the webdriver
 driver.close()
