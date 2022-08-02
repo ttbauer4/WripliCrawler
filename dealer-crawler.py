@@ -131,6 +131,10 @@ except:
 
 # unit page fields to scrape
 unitErrors = []
+totalUsage = []
+usage = []
+maxFlow = []
+flags = []
 usageChartHour = []
 capRemGraph = []
 usageChartDay = []
@@ -143,9 +147,24 @@ append_unit_arrays appends a given value to all arrays which represent data
 '''
 def append_unit_arrays(txt):
     unitErrors.append(txt)
+    totalUsage.append(txt)
+    usage.append(txt)
+    maxFlow.append(txt)
+    flags.append(txt)
     usageChartHour.append(txt)
     usageChartDay.append(txt)
     capRemGraph.append(txt)
+
+'''
+append_dict_tab creates a dictionary given headers and data from a table and
+appends it to the given array
+
+:param h: array of headers
+:param d: array of data
+:param arr: array to which the dictionary is appended
+'''
+def append_dict_tab(h: array, d: array, arr: array):
+    arr.append(dict(zip(h,d)))
 
 '''
 scrape_unit scrapes data from a given unit page and appends it to corresponding 
@@ -162,44 +181,78 @@ def scrape_unit(s: bs):
 
     # append field labels
     unitErrors.append('Valve Status')
+    totalUsage.append('Total Usage')
+    usage.append('Usage')
+    maxFlow.append('Max Flow')
+    flags.append('Flags')
     usageChartHour.append('Hourly Usage')
     usageChartDay.append('Average Daily Usage')
     capRemGraph.append('Daily Capacity Remaining')
 
     # append number of errors on unit
     unitErrors.append(s.find('span',class_='text-nowrap').text.strip())
-    
+
+    # find rows in the general data table
+    tableRows = s.find('table',{'id':'DailyGeneralDataTable'}).find('tbody').find_all('tr')
+
+    # find headers in the general data table (dates ONLY)
+    tableHeaders = []
+    for x in s.find('table',{'id':'DailyGeneralDataTable'}).find('thead').find('tr').find_all('th'):
+        tableHeaders.append(x.get_text().replace('\n',''))
+    del tableHeaders[:2]
+
+    # append total usage (in gallons) this week
+    totalUsage.append(tableRows[0].find_all('th')[1].text)
+
+    # append usage data for this week
+    td=[]
+    for x in tableRows[0].find_all('td'):
+        td.append(x.get_text().replace('\n',''))
+    append_dict_tab(tableHeaders, td, usage)
+
+    # append max flow data for this week
+    td=[]
+    for x in tableRows[1].find_all('td'):
+        td.append(x.get_text().replace('\n',''))
+    append_dict_tab(tableHeaders, td, maxFlow)
+
+    # append flag data for this week
+    td=[]
+    for x in tableRows[2].find_all('td'):
+        td.append(x.get_text().replace('\n',''))
+    append_dict_tab(tableHeaders, td, flags)
+
     # append data from javascript charts/graphs
     # hourly usage chart
     if s.find('canvas',{'id':'hourlyWaterUsageChart'}) != None:
-        append_dict(s.find('canvas',{'id':'hourlyWaterUsageChart'})
+        append_dict_js(s.find('canvas',{'id':'hourlyWaterUsageChart'})
                         .find_next_sibling().text,usageChartHour)
     else:
         usageChartHour.append('data not populated')
 
     # cap rem graph
     if s.find('canvas',{'id':'remainingCapacityChart'}) != None:
-        append_dict(s.find('canvas',{'id':'remainingCapacityChart'})
+        append_dict_js(s.find('canvas',{'id':'remainingCapacityChart'})
                         .find_next_sibling().text,capRemGraph)
     else:
         capRemGraph.append('data not populated')
 
     # daily usage chart
     if s.find('canvas',{'id':'dailyWaterUsageChart'}) != None:
-        append_dict(s.find('canvas',{'id':'dailyWaterUsageChart'})
+        append_dict_js(s.find('canvas',{'id':'dailyWaterUsageChart'})
                         .find_next_sibling().text,usageChartDay)
     else:
         usageChartDay.append('data not populated')
 
 '''
-append_dict creates a dictionary from javascript content found on the unit page 
+append_dict_js creates a dictionary from javascript content found on the unit page 
     by extracting corresponding "labels" and "data" fields from given text, then 
     appends that dictionary to a given array
 
 :param script: text from within javascript tags on the unit page
 :param arr: array to which the dictionary is appended
 '''
-def append_dict (script: str, arr: array):
+def append_dict_js (script: str, arr: array):
     labels = script[(script.find('labels:') + 10) : (script.find( '],', 
                     script.find('labels:')) - 1)].split('","')
     data = script[(script.find('data: [') + 7) : script.find( '],', 
@@ -241,8 +294,8 @@ def write_to_csv(path: str, delim: str, *args : array):
 
 # write scraped data to CSV
 write_to_csv(private.wdFilePath, ',', assignedOnline, assignedOffline, 
-           assignedInactive, unassigned, totalDealers, unitErrors, 
-           usageChartHour, usageChartDay, capRemGraph)
+           assignedInactive, unassigned, totalDealers, unitErrors, totalUsage,
+           usage, maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
 
 # close the webdriver
 driver.close()
