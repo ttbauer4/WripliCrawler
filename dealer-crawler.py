@@ -12,6 +12,7 @@ __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
 __status__ = 'Development'
 
+import sys
 import csv
 import private
 import secrets
@@ -25,26 +26,38 @@ from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
-# prompt user selection
-i = input('\nWould you like to (1) get data from a random unit, (2) get data ' +
+# check for command line arguments
+if len(sys.argv) == 1:
+    # prompt user selection
+    i = input('\nWould you like to (1) get data from a random unit, (2) get data ' +
             'from all units, or (3) get data from a specific unit?\n')
 
-# check for valid input
-while i != '1' and i != '2' and i != '3':
-    i = input('invalid input, enter \'1\' or \'2\' or \'3\'\n')
+    # check for valid input
+    while i != '1' and i != '2' and i != '3':
+        i = input('invalid input, enter \'1\' or \'2\' or \'3\'\n')
 
-# prompt user to input MAC address
-if i == '3':
-    mac = input('Enter the unit\'s MAC address:\n')
-    valid = False
-    for x in private.macArray:
-        if x == mac:
-            valid = True
-    while not valid:
-        mac = input('invalid mac address not found in macArray; try again:\n')
+    # prompt user to input MAC address
+    if i == '3':
+        mac = input('Enter the unit\'s MAC address:\n')
+        valid = False
+        for x in private.macArray:
+            if x == mac:
+                valid = True
+        while not valid:
+            mac = input('invalid mac address not found in macArray; try again:\n')
 
-# time script started running
-kickoff = datetime.now()
+    # time script started running
+    kickoff = datetime.now()
+else:
+    # time script started running
+    kickoff = datetime.now()
+
+    # assign command line arg to i
+    i = sys.argv[1]
+
+    # assign command line arg to mac if sys.argv[1] is 3
+    if i == '3':
+        mac = sys.argv[2]
 
 # initialize browser options
 fireFoxOptions = webdriver.FirefoxOptions()
@@ -378,6 +391,10 @@ elif i == '3':
     except:
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+
+# invalid command line argument
+else:
+    print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
 
 # close the webdriver
 driver.close()
