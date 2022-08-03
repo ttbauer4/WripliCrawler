@@ -26,21 +26,32 @@ from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
+# set output file path
+if getattr(sys,'frozen',False):
+    filePath = sys._MEIPASS + '/' + private.wdFileName
+else:
+    filePath = os.path.dirname(os.path.abspath(__file__)) + '/' + private.wdFileName
+
+'''
+reset removes any existing WripliData.csv file in the same directory then
+    initializes a new one
+'''
 def reset():
     # remove existing file
-    if (os.path.exists(private.wdFilePath) and os.path.isfile(private.wdFilePath)):
-        os.remove(private.wdFilePath)
+    if (os.path.exists(filePath) and os.path.isfile(filePath)):
+        os.remove(filePath)
         print('\nfile deleted')
     else:
         print('\nfile not found')
 
     # create new file with headers
-    file = open(private.wdFilePath, 'w')
+    file = open(filePath, 'w')
     file.write('TIMESTAMP,MAC ADDRESS,UNIT NAME,FIELD,VALUE\n')
     print(private.wdFileName + ' created')
     file.close()
 
 # check for command line arguments
+# command line arguments absent
 if len(sys.argv) == 1:
     # prompt user selection
     i = input('\nWould you like to:\n(1) get data from a random unit\n(2) get '+ 
@@ -77,6 +88,8 @@ if len(sys.argv) == 1:
 
     # time script started running
     kickoff = datetime.now()
+
+# command line arguments present
 else:
     # time script started running
     kickoff = datetime.now()
@@ -343,7 +356,7 @@ def write_to_csv(path: str, delim: str, *args : array):
     file.close()
 
 # write homepage data to CSV
-write_to_csv(private.wdFilePath, ',', assignedOnline, assignedOffline, 
+write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
     assignedInactive, unassigned, totalDealers)
 
 # get data from a random unit
@@ -365,7 +378,7 @@ if i == '1':
             append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
         
         # write scraped data to CSV
-        write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+        write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
             maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
@@ -391,7 +404,7 @@ elif i == '2':
                 append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
             
             # write scraped data to CSV
-            write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+            write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
                 maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
@@ -415,7 +428,7 @@ elif i == '3':
             append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
         
         # write scraped data to CSV
-        write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+        write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
             maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
