@@ -12,6 +12,7 @@ __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
 __status__ = 'Development'
 
+import sys, os
 import csv
 import private
 import secrets
@@ -25,26 +26,80 @@ from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
-# prompt user selection
-i = input('\nWould you like to (1) get data from a random unit, (2) get data ' +
-            'from all units, or (3) get data from a specific unit?\n')
+# set output file path
+if getattr(sys,'frozen',False):
+    filePath = sys._MEIPASS + '/' + private.wdFileName
+else:
+    filePath = os.path.dirname(os.path.abspath(__file__)) + '/' + private.wdFileName
 
-# check for valid input
-while i != '1' and i != '2' and i != '3':
-    i = input('invalid input, enter \'1\' or \'2\' or \'3\'\n')
+'''
+reset removes any existing WripliData.csv file in the same directory then
+    initializes a new one
+'''
+def reset():
+    # remove existing file
+    if (os.path.exists(filePath) and os.path.isfile(filePath)):
+        os.remove(filePath)
+        print('\nfile deleted')
+    else:
+        print('\nfile not found')
 
-# prompt user to input MAC address
-if i == '3':
-    mac = input('Enter the unit\'s MAC address:\n')
-    valid = False
-    for x in private.macArray:
-        if x == mac:
-            valid = True
-    while not valid:
-        mac = input('invalid mac address not found in macArray; try again:\n')
+    # create new file with headers
+    file = open(filePath, 'w')
+    file.write('TIMESTAMP,MAC ADDRESS,UNIT NAME,FIELD,VALUE\n')
+    print(private.wdFileName + ' created')
+    file.close()
 
-# time script started running
-kickoff = datetime.now()
+# check for command line arguments
+# command line arguments absent
+if len(sys.argv) == 1:
+    # prompt user selection
+    i = input('\nWould you like to:\n(1) get data from a random unit\n(2) get '+ 
+              'data from all units\n(3) get data from a specific unit\n(4) ' + 
+              'reset the datasheet\n(5) quit\n\n')
+
+    # check for valid input
+    while i != '1' and i != '2' and i != '3' and i != '4' and i != '5':
+        i = input('invalid input, enter \'1\' or \'2\' or \'3\' or \'4\' or \'5\'\n')
+
+    # reset datasheet loop
+    while i == '4':
+        reset()
+        i = input('\nWould you like to:\n(1) get data from a random unit\n(2) '+ 
+                  'get data from all units\n(3) get data from a specific unit' +
+                  '\n(4) reset the datasheet\n(5) quit\n\n')
+        while i != '1' and i != '2' and i != '3' and i != '4' and i != '5':
+            i = input('invalid input, enter \'1\' or \'2\' or \'3\' or \'4\' or \'5\'\n')
+    
+    # quit program
+    if i == '5':
+        print('\nComplete.\n')
+        sys.exit()
+
+    # prompt user to input MAC address
+    if i == '3':
+        mac = input('Enter the unit\'s MAC address:\n')
+        valid = False
+        for x in private.macArray:
+            if x == mac:
+                valid = True
+        while not valid:
+            mac = input('invalid mac address not found in macArray; try again:\n')
+
+    # time script started running
+    kickoff = datetime.now()
+
+# command line arguments present
+else:
+    # time script started running
+    kickoff = datetime.now()
+
+    # assign command line arg to i
+    i = sys.argv[1]
+
+    # assign command line arg to mac if sys.argv[1] is 3
+    if i == '3':
+        mac = sys.argv[2]
 
 # initialize browser options
 fireFoxOptions = webdriver.FirefoxOptions()
@@ -301,7 +356,7 @@ def write_to_csv(path: str, delim: str, *args : array):
     file.close()
 
 # write homepage data to CSV
-write_to_csv(private.wdFilePath, ',', assignedOnline, assignedOffline, 
+write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
     assignedInactive, unassigned, totalDealers)
 
 # get data from a random unit
@@ -323,7 +378,7 @@ if i == '1':
             append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
         
         # write scraped data to CSV
-        write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+        write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
             maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
@@ -349,7 +404,7 @@ elif i == '2':
                 append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
             
             # write scraped data to CSV
-            write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+            write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
                 maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
@@ -373,11 +428,15 @@ elif i == '3':
             append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
         
         # write scraped data to CSV
-        write_to_csv(private.wdFilePath, ',', unitErrors, totalUsage, usage, 
+        write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
             maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+
+# invalid command line argument
+else:
+    print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
 
 # close the webdriver
 driver.close()
