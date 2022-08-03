@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-''' reset.py: resets datasheet
+''' reset.py: resets datasheet ONLY if it exists in same directory
 '''
 
 __author__ = 'Trenton Bauer'
