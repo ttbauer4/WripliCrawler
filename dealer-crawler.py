@@ -12,7 +12,7 @@ __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
 __status__ = 'Development'
 
-import sys
+import sys, os
 import csv
 import private
 import secrets
@@ -26,15 +26,44 @@ from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
+def reset():
+    # remove existing file
+    if (os.path.exists(private.wdFilePath) and os.path.isfile(private.wdFilePath)):
+        os.remove(private.wdFilePath)
+        print('\nfile deleted')
+    else:
+        print('\nfile not found')
+
+    # create new file with headers
+    file = open(private.wdFilePath, 'w')
+    file.write('TIMESTAMP,MAC ADDRESS,UNIT NAME,FIELD,VALUE\n')
+    print(private.wdFileName + ' created')
+    file.close()
+
 # check for command line arguments
 if len(sys.argv) == 1:
     # prompt user selection
-    i = input('\nWould you like to (1) get data from a random unit, (2) get data ' +
-            'from all units, or (3) get data from a specific unit?\n')
+    i = input('\nWould you like to:\n(1) get data from a random unit\n(2) get '+ 
+              'data from all units\n(3) get data from a specific unit\n(4) ' + 
+              'reset the datasheet\n(5) quit\n\n')
 
     # check for valid input
-    while i != '1' and i != '2' and i != '3':
-        i = input('invalid input, enter \'1\' or \'2\' or \'3\'\n')
+    while i != '1' and i != '2' and i != '3' and i != '4' and i != '5':
+        i = input('invalid input, enter \'1\' or \'2\' or \'3\' or \'4\' or \'5\'\n')
+
+    # reset datasheet loop
+    while i == '4':
+        reset()
+        i = input('\nWould you like to:\n(1) get data from a random unit\n(2) '+ 
+                  'get data from all units\n(3) get data from a specific unit' +
+                  '\n(4) reset the datasheet\n(5) quit\n\n')
+        while i != '1' and i != '2' and i != '3' and i != '4' and i != '5':
+            i = input('invalid input, enter \'1\' or \'2\' or \'3\' or \'4\' or \'5\'\n')
+    
+    # quit program
+    if i == '5':
+        print('\nComplete.\n')
+        sys.exit()
 
     # prompt user to input MAC address
     if i == '3':
