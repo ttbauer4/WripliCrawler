@@ -15,4 +15,5 @@
   8. Edit private_TEMPLATE.py, satisfying the `TODO` tags
   9. Rename to private.py (consider placing in the same directory and using .gitignore to avoid compromising privacy)
   10. Run
-  11. If you wish to schedule it to run at prescribed times, see [this site.](https://desktop.arcgis.com/en/arcmap/10.7/analyze/python/scheduling-a-python-script-to-run-at-prescribed-times.htm)
+  11. If you wish to schedule it to run at prescribed times, see [this site](https://desktop.arcgis.com/en/arcmap/10.7/analyze/python/scheduling-a-python-script-to-run-at-prescribed-times.htm) and be sure to pass appropriate command-line arguments.
+  12. If you wish to package your crawler into an executable file, install [PyInstaller](https://pyinstaller.org/en/stable/)
