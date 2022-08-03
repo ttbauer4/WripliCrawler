@@ -7,9 +7,10 @@
 ## How to use:
   1. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
   2. Install [Python](https://www.python.org/downloads/release/python-3105/)
+  3. Install [pip](https://pip.pypa.io/en/stable/installation/)
   3. Install [Beautiful Soup](https://beautiful-soup-4.readthedocs.io/en/latest/#installing-beautiful-soup)
   4. Install [Firefox](https://www.mozilla.org/en-US/firefox/new/)
-  5. Install [GeckoDriver](https://github.com/mozilla/geckodriver/releases)
+  5. Install [GeckoDriver](https://github.com/mozilla/geckodriver/releases) (don't forget to `pip install webdriver_manager`)
   6. Install [Selenium](https://selenium-python.readthedocs.io/installation.html)
   7. Click **USE THIS TEMPLATE** and create your new repository
   8. Edit private_TEMPLATE.py, satisfying the `TODO` tags
