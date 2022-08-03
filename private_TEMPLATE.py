@@ -23,11 +23,8 @@ macArray = []
 
 ### TODO: APPEND MAC ADDRESSES HERE ###
 
-# TODO: dataset file location
-wdFilePath = '<FILE PATH>'
-
 # TODO: dataset file name
-wdFileName = '<FILE NAME>'
+wdFileName = '<FILE NAME>.csv'
 
 # login page URL
 loginURL = '<LOGIN URL>'
