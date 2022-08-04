@@ -85,6 +85,9 @@ if len(sys.argv) == 1:
                 valid = True
         while not valid:
             mac = input('invalid mac address not found in macArray; try again:\n')
+            for x in private.macArray:
+                if x == mac:
+                    valid = True
 
     # time script started running
     kickoff = datetime.now()
