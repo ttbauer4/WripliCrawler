@@ -6,3 +6,4 @@ private.json
 .vscode
 WripliData.csv
 consumer-crawler.py
+driver/geckodriver
