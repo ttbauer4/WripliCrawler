@@ -7,14 +7,14 @@ activity and logs data
 '''
 
 __author__ = 'Trenton Bauer'
-__version__ = 'V1.2'
+__version__ = 'V1.3'
 __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
 __status__ = 'Development'
 
 import sys, os
 import csv
-import private
+import json
 import secrets
 import traceback
 from array import array
@@ -26,11 +26,25 @@ from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
+# retreive user info from private.json
+with open('private.json', 'r') as f:
+    credentials = json.load(f)
+    dealerUser = credentials["Email"]
+    dealerPass = credentials["Password"]
+
+    macArray = credentials["Mac Array"]
+
+    fileName = credentials["File Name"]
+
+    loginURL = credentials["login URL"]
+    homeURL = credentials["home URL"]
+    unitURL = credentials["unit URL"]
+
 # set output file path
 if getattr(sys,'frozen',False):
-    filePath = sys._MEIPASS + '/' + private.wdFileName
+    filePath = sys._MEIPASS + '/' + fileName
 else:
-    filePath = os.path.dirname(os.path.abspath(__file__)) + '/' + private.wdFileName
+    filePath = os.path.dirname(os.path.abspath(__file__)) + '/' + fileName
 
 '''
 reset removes any existing WripliData.csv file in the same directory then
@@ -47,7 +61,7 @@ def reset():
     # create new file with headers
     file = open(filePath, 'w')
     file.write('TIMESTAMP,MAC ADDRESS,UNIT NAME,FIELD,VALUE\n')
-    print(private.wdFileName + ' created')
+    print(fileName + ' created')
     file.close()
 
 # check for command line arguments
@@ -80,12 +94,12 @@ if len(sys.argv) == 1:
     if i == '3':
         mac = input('Enter the unit\'s MAC address:\n')
         valid = False
-        for x in private.macArray:
+        for x in macArray:
             if x == mac:
                 valid = True
         while not valid:
             mac = input('invalid mac address not found in macArray; try again:\n')
-            for x in private.macArray:
+            for x in macArray:
                 if x == mac:
                     valid = True
 
@@ -115,17 +129,15 @@ driver.implicitly_wait(60)
 
 try:
     # login to site
-    driver.get(private.loginURL)
+    driver.get(loginURL)
 
     username = driver.find_element(By.XPATH, '//input[@id="Email"]')
     username.clear()
-    key = private.dealerUser
-    username.send_keys(key)
+    username.send_keys(dealerUser)
 
     password = driver.find_element(By.XPATH, '//input[@id="Password"]')
     password.clear()
-    key = private.dealerPass
-    password.send_keys(key)
+    password.send_keys(dealerPass)
 
     submit = driver.find_element(By.XPATH, '//input[@type="submit"]')
     submit.click()
@@ -189,7 +201,7 @@ def scrape_home(s: bs):
 
 try:
     # driver at homepage
-    driver.get(private.homeURL)
+    driver.get(homeURL)
     soup = bs(driver.page_source, 'html.parser')
 
     # check for timeout
@@ -366,8 +378,8 @@ write_to_csv(filePath, ',', assignedOnline, assignedOffline,
 if i == '1':
     try:
         # driver at random unit page
-        mac = secrets.choice(private.macArray)
-        driver.get(private.unitURL + mac)
+        mac = secrets.choice(macArray)
+        driver.get(unitURL + mac)
         soup = bs(driver.page_source,'html.parser')
 
         # check for timeout
@@ -390,10 +402,10 @@ if i == '1':
 # get data from all units
 elif i == '2':
     try:
-        for x in private.macArray:
+        for x in macArray:
             # driver at given unit page
             mac = x
-            driver.get(private.unitURL + mac)
+            driver.get(unitURL + mac)
             soup = bs(driver.page_source,'html.parser')
 
             # check for timeout
@@ -417,7 +429,7 @@ elif i == '2':
 elif i == '3':
     try:
         # driver at given unit page
-        driver.get(private.unitURL + mac)
+        driver.get(unitURL + mac)
         soup = bs(driver.page_source,'html.parser')
 
         # check for timeout
