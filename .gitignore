@@ -6,3 +6,6 @@ WripliData.csv
 consumer-crawler.py
 driver/geckodriver
 private.json
+build
+dist
+dealer-crawler.spec
