@@ -1,9 +1,8 @@
 .DS_Store
 geckodriver.log
 __pycache__/private.cpython-310.pyc
-private.py
-private.json
 .vscode
 WripliData.csv
 consumer-crawler.py
 driver/geckodriver
+private.json
