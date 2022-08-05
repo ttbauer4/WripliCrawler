@@ -27,7 +27,12 @@ from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
 # retreive user info from private.json
-with open('private.json', 'r') as f:
+if getattr(sys,'frozen',False):
+    filePath = sys._MEIPASS + '/' + 'private.json'
+else:
+    filePath = os.path.dirname(os.path.abspath(__file__)) + '/' + 'private.json'
+
+with open(filePath, 'r') as f:
     credentials = json.load(f)
     dealerUser = credentials["Email"]
     dealerPass = credentials["Password"]
@@ -368,7 +373,7 @@ def write_to_csv(path: str, delim: str, *args : array):
         writer = csv.writer(file, delimiter=delim)
         for x in args:
             writer.writerow(x)    
-    file.close()
+        file.close()
 
 # write homepage data to CSV
 write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
