@@ -5,4 +5,3 @@ __pycache__/private.cpython-310.pyc
 WripliData.csv
 consumer-crawler.py
 driver/geckodriver
-private.json
