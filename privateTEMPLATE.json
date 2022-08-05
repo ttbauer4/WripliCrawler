@@ -1,5 +1,5 @@
 {
-    "__INSTRUCTIONS__" : "edit the fields below before running dealer-crawler.py or dealer-crawler.exe",
+    "__INSTRUCTIONS__" : "edit the fields below before running dealer-crawler.py or dealer-crawler.exe then rename this file to private.json",
 
     "Email" : "<YOUR EMAIL>",
     "Password" : "<YOUR PASSWORD>",
