@@ -1,0 +1,14 @@
+{
+    "__INSTRUCTIONS__" : "edit the fields below before running dealer-crawler.py or dealer-crawler.exe",
+
+    "Email" : "<YOUR EMAIL>",
+    "Password" : "<YOUR PASSWORD>",
+
+    "Mac Array" : ["INSERT MAC ADDRESSES IN QUOTES SEPARATED BY COMMAS", "LIKE", "THIS"],
+
+    "File Name" : "<YOUR FILE NAME>",
+
+    "login URL" : "<LOGIN URL>",
+    "home URL" : "<HOME URL>",
+    "unit URL" : "<UNIT URL PREFIX (EXCLUDE MAC ADDRESS)>"
+}
