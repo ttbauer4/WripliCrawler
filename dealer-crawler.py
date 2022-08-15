@@ -17,6 +17,7 @@ import csv
 import json
 import secrets
 import traceback
+import time
 from array import array
 from datetime import datetime
 from time import localtime, strftime
@@ -70,8 +71,7 @@ def reset():
     file.close()
 
 # check for command line arguments
-# command line arguments absent
-if len(sys.argv) == 1:
+if len(sys.argv) == 1: # command line arguments absent
     # prompt user selection
     i = input('\nWould you like to:\n(1) get data from a random unit\n(2) get '+ 
               'data from all units\n(3) get data from a specific unit\n(4) ' + 
@@ -81,8 +81,8 @@ if len(sys.argv) == 1:
     while i != '1' and i != '2' and i != '3' and i != '4' and i != '5':
         i = input('invalid input, enter \'1\' or \'2\' or \'3\' or \'4\' or \'5\'\n')
 
-    # reset datasheet loop
-    while i == '4':
+    
+    while i == '4': # reset datasheet loop
         reset()
         i = input('\nWould you like to:\n(1) get data from a random unit\n(2) '+ 
                   'get data from all units\n(3) get data from a specific unit' +
@@ -90,13 +90,12 @@ if len(sys.argv) == 1:
         while i != '1' and i != '2' and i != '3' and i != '4' and i != '5':
             i = input('invalid input, enter \'1\' or \'2\' or \'3\' or \'4\' or \'5\'\n')
     
-    # quit program
-    if i == '5':
+    if i == '5': # quit program
         print('\nComplete.\n')
         sys.exit()
 
-    # prompt user to input MAC address
-    if i == '3':
+    
+    if i == '3': # prompt user to input MAC address
         mac = input('Enter the unit\'s MAC address:\n')
         valid = False
         for x in macArray:
@@ -111,8 +110,7 @@ if len(sys.argv) == 1:
     # time script started running
     kickoff = datetime.now()
 
-# command line arguments present
-else:
+else: # command line arguments present
     # time script started running
     kickoff = datetime.now()
 
@@ -150,25 +148,82 @@ except:
     traceback.print_exc()
     print('EXCEPTION CAUGHT ON LOGIN')
 
+'''
+append_all appends a given value to each array within an array.
+
+:param txt: that which is to be appended to the arrays 
+'''
+def append_all(txt:str, arr:array):
+    for x in arr:
+        x.append(txt)
+
+'''
+append_dict_tab creates a dictionary given headers and data from a table and
+appends it to the given array
+
+:param h: array of headers
+:param d: array of data
+:param arr: array to which the dictionary is appended
+'''
+def append_dict_tab(h: array, d: array, arr: array):
+    arr.append(dict(zip(h,d)))
+
+'''
+append_dict_js creates a dictionary from javascript content found on the unit page 
+    by extracting corresponding "labels" and "data" fields from given text, then 
+    appends that dictionary to a given array
+
+:param script: text from within javascript tags on the unit page
+:param arr: array to which the dictionary is appended
+'''
+def append_dict_js (script: str, arr: array):
+    labels = script[(script.find('labels:') + 10) : (script.find( '],', 
+                    script.find('labels:')) - 1)].split('","')
+    data = script[(script.find('data: [') + 7) : script.find( '],', 
+                  script.find('data: ['))].split(',')
+    arr.append(dict(zip(labels,data)))
+
+'''
+writeToCSV writes arrays to a CSV file as rows
+
+:param path: path to CSV file
+:param delim: string delimiter for writing arrays to rows
+:param *args: variable number of array arguments to be written to given CSV
+'''
+def write_to_csv(path: str, delim: str, *args : array):
+    with open(path, 'a', newline='') as file:
+        writer = csv.writer(file, delimiter=delim)
+        for x in args:
+            writer.writerow(x)    
+        file.close()
+
 # homepage fields to scrape
 assignedOnline = []
 assignedOffline = []
 assignedInactive = []
 unassigned = []
 totalDealers = []
+homeArrays = [assignedOnline, assignedOffline, assignedInactive, unassigned, totalDealers]
 
-'''
-append_home_arrays appends a given value to all arrays which represent data 
-    fields found on the homepage.
+# unit page fields to scrape
+unitErrors = []
+totalUsage = []
+usage = []
+maxFlow = []
+flags = []
+usageChartHour = []
+capRemGraph = []
+usageChartDay = []
+unitArrays = [unitErrors, totalUsage, usage, maxFlow, flags, usageChartHour, capRemGraph, usageChartDay]
 
-:param txt: that which is to be appended to the arrays 
-'''
-def append_home_arrays(txt):
-    assignedOnline.append(txt)
-    assignedOffline.append(txt)
-    assignedInactive.append(txt)
-    unassigned.append(txt)
-    totalDealers.append(txt)
+# consumer view fields to scrape
+currFlowIcon = []
+usageTodayIcon = []
+peakFlowRateIcon = []
+capRemIcon = []
+ssid = []
+rssi = []
+consumArrays = [currFlowIcon, usageTodayIcon, peakFlowRateIcon, capRemIcon, ssid, rssi]
 
 '''
 scrape_home scrapes data from the homepage and appends it to corresponding 
@@ -179,9 +234,9 @@ scrape_home scrapes data from the homepage and appends it to corresponding
 def scrape_home(s: bs):
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
-    append_home_arrays(curTime)
-    append_home_arrays('N/A')
-    append_home_arrays('N/A')
+    append_all(curTime, homeArrays)
+    append_all('N/A', homeArrays)
+    append_all('N/A', homeArrays)
 
     # append field labels
     assignedOnline.append('Assigned Valves: Online')
@@ -204,60 +259,6 @@ def scrape_home(s: bs):
     unassigned.append(str(homeValues[3]))
     totalDealers.append(str(homeValues[4]))
 
-try:
-    # driver at homepage
-    driver.get(homeURL)
-    soup = bs(driver.page_source, 'html.parser')
-
-    # check for timeout
-    if soup.find('form',{'id':'CatchAllForm'}) == None:
-        # scrape data from homepage
-        scrape_home(soup)
-    else:
-        append_home_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
-        append_home_arrays('ERROR:')
-        append_home_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
-except:
-    traceback.print_exc()
-    print('EXCEPTION CAUGHT WHILE SCRAPING HOME')
-
-# unit page fields to scrape
-unitErrors = []
-totalUsage = []
-usage = []
-maxFlow = []
-flags = []
-usageChartHour = []
-capRemGraph = []
-usageChartDay = []
-
-'''
-append_unit_arrays appends a given value to all arrays which represent data 
-    fields found on the unit page.
-
-:param txt: that which is to be appended to the arrays
-'''
-def append_unit_arrays(txt):
-    unitErrors.append(txt)
-    totalUsage.append(txt)
-    usage.append(txt)
-    maxFlow.append(txt)
-    flags.append(txt)
-    usageChartHour.append(txt)
-    usageChartDay.append(txt)
-    capRemGraph.append(txt)
-
-'''
-append_dict_tab creates a dictionary given headers and data from a table and
-appends it to the given array
-
-:param h: array of headers
-:param d: array of data
-:param arr: array to which the dictionary is appended
-'''
-def append_dict_tab(h: array, d: array, arr: array):
-    arr.append(dict(zip(h,d)))
-
 '''
 scrape_unit scrapes data from a given unit page and appends it to corresponding 
     arrays.
@@ -274,12 +275,11 @@ def scrape_unit(s: bs):
     usageChartDay.clear()
     capRemGraph.clear()
 
-
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
-    append_unit_arrays(curTime)
-    append_unit_arrays(mac)
-    append_unit_arrays(s.find('p',class_='font-weight-bold').text.strip())
+    append_all(curTime, unitArrays)
+    append_all(mac, unitArrays)
+    append_all(s.find('p',class_='font-weight-bold').text.strip(), unitArrays)
 
     # append field labels
     unitErrors.append('Valve Status')
@@ -346,41 +346,29 @@ def scrape_unit(s: bs):
     else:
         usageChartDay.append('data not populated')
 
-'''
-append_dict_js creates a dictionary from javascript content found on the unit page 
-    by extracting corresponding "labels" and "data" fields from given text, then 
-    appends that dictionary to a given array
+try:
+    # driver at homepage
+    driver.get(homeURL)
+    soup = bs(driver.page_source, 'html.parser')
 
-:param script: text from within javascript tags on the unit page
-:param arr: array to which the dictionary is appended
-'''
-def append_dict_js (script: str, arr: array):
-    labels = script[(script.find('labels:') + 10) : (script.find( '],', 
-                    script.find('labels:')) - 1)].split('","')
-    data = script[(script.find('data: [') + 7) : script.find( '],', 
-                  script.find('data: ['))].split(',')
-    arr.append(dict(zip(labels,data)))
-
-'''
-writeToCSV writes arrays to a CSV file as rows
-
-:param path: path to CSV file
-:param delim: string delimiter for writing arrays to rows
-:param *args: variable number of array arguments to be written to given CSV
-'''
-def write_to_csv(path: str, delim: str, *args : array):
-    with open(path, 'a', newline='') as file:
-        writer = csv.writer(file, delimiter=delim)
-        for x in args:
-            writer.writerow(x)    
-        file.close()
+    # check for timeout
+    if soup.find('form',{'id':'CatchAllForm'}) == None:
+        # scrape homepage data
+        scrape_home(soup)
+    else:
+        append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), homeArrays)
+        append_all('ERROR:', homeArrays)
+        append_all(soup.find('p',{'id':'ErrorNumber'}).text, homeArrays)
+except:
+    traceback.print_exc()
+    print('EXCEPTION CAUGHT WHILE SCRAPING HOME')
 
 # write homepage data to CSV
 write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
     assignedInactive, unassigned, totalDealers)
 
-# get data from a random unit
-if i == '1':
+# scrape unit data based on user input
+if i == '1': # get data from a random unit
     try:
         # driver at random unit page
         mac = secrets.choice(macArray)
@@ -392,20 +380,19 @@ if i == '1':
             # scrape data from unit page
             scrape_unit(soup)
         else:
-            append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
-            append_unit_arrays(mac)
-            append_unit_arrays('ERROR:')
-            append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
+            append_all(mac, unitArrays)
+            append_all('ERROR:', unitArrays)
+            append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
         
-        # write scraped data to CSV
+        # write unit data to CSV
         write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
             maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
 
-# get data from all units
-elif i == '2':
+elif i == '2': # get data from all units
     try:
         for x in macArray:
             # driver at given unit page
@@ -418,20 +405,19 @@ elif i == '2':
                 # scrape data from unit page
                 scrape_unit(soup)
             else:
-                append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
-                append_unit_arrays(mac)
-                append_unit_arrays('ERROR:')
-                append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+                append_all(strftime("%Y-%m-%d %H:%M:%S", localtime()))
+                append_all(mac)
+                append_all('ERROR:')
+                append_all(soup.find('p',{'id':'ErrorNumber'}).text)
             
-            # write scraped data to CSV
+            # write unit data to CSV
             write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
                 maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
 
-# get data from a specific unit
-elif i == '3':
+elif i == '3': # get data from a specific unit
     try:
         # driver at given unit page
         driver.get(unitURL + mac)
@@ -442,20 +428,19 @@ elif i == '3':
             # scrape data from unit page
             scrape_unit(soup)
         else:
-            append_unit_arrays(strftime("%Y-%m-%d %H:%M:%S", localtime()))
-            append_unit_arrays(mac)
-            append_unit_arrays('ERROR:')
-            append_unit_arrays(soup.find('p',{'id':'ErrorNumber'}).text)
+            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
+            append_all(mac, unitArrays)
+            append_all('ERROR:', unitArrays)
+            append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
         
-        # write scraped data to CSV
+        # write unit data to CSV
         write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
             maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
     except:
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
 
-# invalid command line argument
-else:
+else: # invalid command line argument
     print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
 
 # close the webdriver
@@ -467,3 +452,6 @@ print('Execution took ' + str(td.total_seconds()) + ' seconds.')
 
 # indicate completion
 print('Complete.\n')
+
+time.sleep(3)
+sys.exit()
