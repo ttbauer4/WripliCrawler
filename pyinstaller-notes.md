@@ -10,4 +10,4 @@
     - ```shutil.copyfile('WripliData.csv', '{0}/WripliData.csv'.format(DISTPATH))```
 6. execute the following command in Terminal: 
     - ```pyinstaller --clean dealer-crawler.spec```
-
+7. /dist/private.json and /dist/WripliData.csv may be deleted, but /dist/dealer-crawler/private.json and WripliData.csv should be kept
