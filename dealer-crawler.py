@@ -16,6 +16,7 @@ import sys, os
 import csv
 import json
 import secrets
+import cursor
 import traceback
 import time
 from array import array
@@ -23,6 +24,7 @@ from datetime import datetime
 from time import localtime, strftime
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
+
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
@@ -45,6 +47,7 @@ with open(filePath, 'r') as f:
     loginURL = credentials["login URL"]
     homeURL = credentials["home URL"]
     unitURL = credentials["unit URL"]
+    consumURL = credentials["consumer URL"]
 
 # set output file path
 if getattr(sys,'frozen',False):
@@ -92,6 +95,7 @@ if len(sys.argv) == 1: # command line arguments absent
     
     if i == '5': # quit program
         print('\nComplete.\n')
+        cursor.show()
         sys.exit()
 
     
@@ -121,6 +125,9 @@ else: # command line arguments present
     if i == '3':
         mac = sys.argv[2]
 
+# hide cursor in console window
+cursor.hide()
+
 # initialize browser options
 fireFoxOptions = webdriver.FirefoxOptions()
 fireFoxOptions.headless = True
@@ -128,9 +135,12 @@ fireFoxOptions.headless = True
 # create new Firefox driver and retreive login site
 driver = webdriver.Firefox(options=fireFoxOptions, service=
     Service(GeckoDriverManager().install()))
-driver.implicitly_wait(60)
+driver.implicitly_wait(10)
 
 try:
+    # initialize progress %
+    print('0.00%', end='\r')
+
     # login to site
     driver.get(loginURL)
 
@@ -152,6 +162,7 @@ except:
 append_all appends a given value to each array within an array.
 
 :param txt: that which is to be appended to the arrays 
+:param arr: an array of arrays to which txt is appended
 '''
 def append_all(txt:str, arr:array):
     for x in arr:
@@ -346,6 +357,55 @@ def scrape_unit(s: bs):
     else:
         usageChartDay.append('data not populated')
 
+'''
+scrape_consumer scrapes data from the consumer page of a given unit page and appends it to corresponding 
+    arrays.
+
+:param s: a Beautiful Soup object with a unit's consumer page source
+'''
+def scrape_consumer(s:bs):
+    currFlowIcon.clear()
+    usageTodayIcon.clear()
+    peakFlowRateIcon.clear()
+    capRemIcon.clear()
+    ssid.clear()
+    rssi.clear()
+
+    # append timestamp, unit MAC address, and unit name
+    curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
+    append_all(curTime, consumArrays)
+    append_all(mac, consumArrays)
+    append_all(s.find('p',class_='font-weight-bold').text.strip(), consumArrays)
+
+    # append field labels
+    currFlowIcon.append('Current Flow Rate')
+    usageTodayIcon.append('Gallons Used Today')
+    peakFlowRateIcon.append('Peak Flow Rate-Last 7 Days')
+    capRemIcon.append('Capacity Remaining Until Regen')
+    ssid.append('SSID (WiFi Connection)')
+    rssi.append('RSSI (Signal Strength)')
+
+    # append current flow rate
+    currFlowIcon.append(s.find('div',{'id':'divCurrentFlowRate'}).text)
+
+    # append today's usage
+    usageTodayIcon.append(s.find('div',{'id':'todaysWaterUsage'}).find('div', class_='stat-number font-weight-bold').text)
+
+    # append peak flow rate
+    peakFlowRateIcon.append(s.find('div',{'id':'pastWeekPeakFlowRate'}).find('div', class_='stat-number font-weight-bold').text)
+
+    # append capacity remaining
+    capRemIcon.append(s.find('div',{'id':'divCapacityRemaining'}).text)
+
+    # append SSID
+    ssid.append(s.find('label',{'id':'ValveSSID'}).text)
+
+    # append RSSI
+    sig = s.find('img',{'id':'valveSignalStrengthImg'})['src']
+    sig = sig[sig.find('_')+1:-4].replace('_',', ').replace('bar', ' bar')
+    rssi.append(sig)
+
+# BEGIN CRAWLING
 try:
     # driver at homepage
     driver.get(homeURL)
@@ -370,6 +430,8 @@ write_to_csv(filePath, ',', assignedOnline, assignedOffline,
 # scrape unit data based on user input
 if i == '1': # get data from a random unit
     try:
+        print(str("%.2f" % ((1.0/3.0)*100.0)) + '%', end='\r')
+
         # driver at random unit page
         mac = secrets.choice(macArray)
         driver.get(unitURL + mac)
@@ -379,21 +441,60 @@ if i == '1': # get data from a random unit
         if soup.find('form',{'id':'CatchAllForm'}) == None:
             # scrape data from unit page
             scrape_unit(soup)
+            print(str("%.2f" % ((2.0/3.0)*100.0)) + '%', end='\r')
         else:
             append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
             append_all(mac, unitArrays)
             append_all('ERROR:', unitArrays)
             append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
+
+        # driver at random consumer view page
+        driver.get(consumURL + mac)
         
+        # wait for capacity remaining
+        cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+        cr = cri
+        y = 0
+        while (cri == cr or cr == '0') and y < 30:
+            time.sleep(1)
+            cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+            y+=1
+
+        # wait for SSID
+        wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
+        while wifi == "Getting Valve SSID..." and y < 10:
+            time.sleep(1)
+            wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
+            y+=1
+        
+        soup = bs(driver.page_source,'html.parser')
+
+        # check for timeout
+        if soup.find('form',{'id':'CatchAllForm'}) == None:
+            # scrape data from unit page
+            scrape_consumer(soup)
+            print(str("%.2f" % ((3.0/3.0)*100.0)) + '%', end='\r')
+        else:
+            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
+            append_all(mac, consumArrays)
+            append_all('ERROR:', consumArrays)
+            append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
+
         # write unit data to CSV
-        write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
-            maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
+        for x in unitArrays:
+            write_to_csv(filePath, ',', x)
+        for x in consumArrays:
+            write_to_csv(filePath, ',', x)
+        print()
     except:
         traceback.print_exc()
-        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT\n')
+        print('MAC: ' + mac)
 
 elif i == '2': # get data from all units
     try:
+        p = 1.0
+        print(str("%.2f" % ((p/float(len(macArray) + 1.0))*100.0)) + '%', end='\r')
         for x in macArray:
             # driver at given unit page
             mac = x
@@ -404,21 +505,62 @@ elif i == '2': # get data from all units
             if soup.find('form',{'id':'CatchAllForm'}) == None:
                 # scrape data from unit page
                 scrape_unit(soup)
+                p+=0.5
+                print(str("%.2f" % ((p/float(len(macArray) + 1.0))*100.0)) + '%', end='\r')
             else:
-                append_all(strftime("%Y-%m-%d %H:%M:%S", localtime()))
-                append_all(mac)
-                append_all('ERROR:')
-                append_all(soup.find('p',{'id':'ErrorNumber'}).text)
+                append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
+                append_all(mac, unitArrays)
+                append_all('ERROR:', unitArrays)
+                append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
             
+            # driver at given consumer page
+            driver.get(consumURL + mac)
+            
+            # wait for capacity remaining
+            cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+            cr = cri
+            y = 0
+            while (cri == cr or cr == '0') and y < 30:
+                time.sleep(1)
+                cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+                y+=1
+
+            # wait for SSID
+            wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
+            while wifi == "Getting Valve SSID..." and y < 10:
+                time.sleep(1)
+                wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
+                y+=1
+            
+            soup = bs(driver.page_source,'html.parser')
+
+            # check for timeout
+            if soup.find('form',{'id':'CatchAllForm'}) == None:
+                # scrape data from consumer page
+                scrape_consumer(soup)
+                p+=0.5
+                print(str("%.2f" % ((p/float(len(macArray) + 1.0))*100.0)) + '%', end='\r')
+            else:
+                append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
+                append_all(mac, consumArrays)
+                append_all('ERROR:', consumArrays)
+                append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
+
             # write unit data to CSV
-            write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
-                maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
+            for x in unitArrays:
+                write_to_csv(filePath, ',', x)
+            for x in consumArrays:
+                write_to_csv(filePath, ',', x)
+        print()
     except:
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+        print('MAC: ' + mac)
 
 elif i == '3': # get data from a specific unit
     try:
+        print(str("%.2f" % ((1.0/3.0)*100.0)) + '%', end='\r')
+
         # driver at given unit page
         driver.get(unitURL + mac)
         soup = bs(driver.page_source,'html.parser')
@@ -427,18 +569,55 @@ elif i == '3': # get data from a specific unit
         if soup.find('form',{'id':'CatchAllForm'}) == None:
             # scrape data from unit page
             scrape_unit(soup)
+            print(str("%.2f" % ((2.0/3.0)*100.0)) + '%', end='\r')
         else:
             append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
             append_all(mac, unitArrays)
             append_all('ERROR:', unitArrays)
             append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
+
+        # driver at given consumer page
+        driver.get(consumURL + mac)
         
+        # wait for capacity remaining
+        cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+        cr = cri
+        y = 0
+        while (cri == cr or cr == '0') and y < 30:
+            time.sleep(1)
+            cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+            y+=1
+
+        # wait for SSID
+        wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
+        while wifi == "Getting Valve SSID..." and y < 10:
+            time.sleep(1)
+            wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
+            y+=1
+        
+        soup = bs(driver.page_source,'html.parser')
+
+        # check for timeout
+        if soup.find('form',{'id':'CatchAllForm'}) == None:
+            # scrape data from consumer page
+            scrape_consumer(soup)
+            print(str("%.2f" % ((3.0/3.0)*100.0)) + '%', end='\r')
+        else:
+            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
+            append_all(mac, consumArrays)
+            append_all('ERROR:', consumArrays)
+            append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
+
         # write unit data to CSV
-        write_to_csv(filePath, ',', unitErrors, totalUsage, usage, 
-            maxFlow, flags, usageChartHour, usageChartDay, capRemGraph)
+        for x in unitArrays:
+            write_to_csv(filePath, ',', x)
+        for x in consumArrays:
+            write_to_csv(filePath, ',', x)
+        print()
     except:
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+        print('MAC: ' + mac)
 
 else: # invalid command line argument
     print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
@@ -453,5 +632,6 @@ print('Execution took ' + str(td.total_seconds()) + ' seconds.')
 # indicate completion
 print('Complete.\n')
 
-time.sleep(3)
+time.sleep(1)
+cursor.show()
 sys.exit()
