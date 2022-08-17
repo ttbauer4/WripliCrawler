@@ -10,4 +10,3 @@ build
 dist
 dealer-crawler.spec
 dealer-crawler
-pyinstaller-notes.txt
