@@ -1,0 +1,15 @@
+PLACE YOUR <WEBDRIVER>.exe FILE IN THIS FOLDER
+
+******************************
+For THIS implementation of Wripli Crawler:
+Geckodriver (FIREFOX): https://github.com/mozilla/geckodriver/releases
+******************************
+For OTHER forks/implementations:
+ChromeDriver (CHROME): https://chromedriver.chromium.org/downloads
+InternetExplorerDriver (INTERNET EXPLORER): https://www.selenium.dev/documentation/ie_driver_server/
+SafariDriver (SAFARI): https://developer.apple.com/documentation/webkit/about_webdriver_for_safari
+OperaDriver (OPERA): https://github.com/operasoftware/operachromiumdriver/releases
+Microsoft Edge WebDriver: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/#downloads
+******************************
+
+FEEL FREE TO DELETE THIS FILE AFTER YOU'VE PLACED YOUR DRIVER IN THIS FOLDER

@@ -1,12 +1,17 @@
 # Wripli Crawler
 **_This program is designed to streamline the testing process and improve decision-making as it relates to the user experience of Wripli._**
 ****
+## VERSION 1.3
+  - Implemented private.json config file
+  - Implemented ability to crawl consumer page
+  - Improved UI
+
 ## VERSION 1.2: 
   - Implemented ability to pull data from one, all, or a random unit
   - Implemented ability to pass command line arguments
   - Made dataset file path flexible
   - Implemented datasheet reset functionality within dealer-crawler.py
-  - Improved UI text
+  - Improved UI
   
 ## VERSION 1.1: 
   - Removed all prior commit history, creating a safe production version of WripliCrawler.
@@ -20,8 +25,8 @@
   5. Install [GeckoDriver](https://github.com/mozilla/geckodriver/releases) (don't forget to `pip install webdriver_manager`)
   6. Install [Selenium](https://selenium-python.readthedocs.io/installation.html)
   7. Click **USE THIS TEMPLATE** and create your new repository
-  8. Edit private_TEMPLATE.py, satisfying the `TODO` tags
-  9. Rename to private.py (consider placing in same directory and using .gitignore to avoid compromising privacy)
+  8. Edit private_TEMPLATE.json per your desired result
+  9. Rename to private.json (consider placing in same directory and using .gitignore to avoid compromising privacy)
   10. Run
   11. If you wish to schedule it to run at prescribed times, see [this site](https://desktop.arcgis.com/en/arcmap/10.7/analyze/python/scheduling-a-python-script-to-run-at-prescribed-times.htm) and be sure to pass [appropriate command-line arguments](https://github.com/ttbauer4/WripliCrawler/issues/5#issuecomment-1198194970).
-  12. If you wish to package your crawler into an executable file, install [PyInstaller](https://pyinstaller.org/en/stable/)
+  12. If you wish to package your crawler into an executable file, use [PyInstaller](https://pyinstaller.org/en/stable/)
