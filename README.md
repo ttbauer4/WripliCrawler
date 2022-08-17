@@ -1,12 +1,17 @@
 # Wripli Crawler
 **_This program is designed to streamline the testing process and improve decision-making as it relates to the user experience of Wripli._**
 ****
+## VERSION 1.3
+  - Implemented private.json config file
+  - Implemented ability to crawl consumer page
+  - Improved UI
+
 ## VERSION 1.2: 
   - Implemented ability to pull data from one, all, or a random unit
   - Implemented ability to pass command line arguments
   - Made dataset file path flexible
   - Implemented datasheet reset functionality within dealer-crawler.py
-  - Improved UI text
+  - Improved UI
   
 ## VERSION 1.1: 
   - Removed all prior commit history, creating a safe production version of WripliCrawler.
