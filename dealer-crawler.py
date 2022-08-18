@@ -224,7 +224,9 @@ flags = []
 usageChartHour = []
 capRemGraph = []
 usageChartDay = []
-unitArrays = [unitErrors, totalUsage, usage, maxFlow, flags, usageChartHour, capRemGraph, usageChartDay]
+brineTable = []
+ozoneTable = []
+unitArrays = [unitErrors, totalUsage, usage, maxFlow, flags, usageChartHour, capRemGraph, usageChartDay, brineTable, ozoneTable]
 
 # consumer view fields to scrape
 currFlowIcon = []
@@ -284,6 +286,8 @@ def scrape_unit(s: bs):
     usageChartHour.clear()
     usageChartDay.clear()
     capRemGraph.clear()
+    brineTable.clear()
+    ozoneTable.clear()
 
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
@@ -300,6 +304,8 @@ def scrape_unit(s: bs):
     usageChartHour.append('Hourly Usage')
     usageChartDay.append('Average Daily Usage')
     capRemGraph.append('Daily Capacity Remaining')
+    brineTable.append('Brine % (Last 10 Regens)')
+    ozoneTable.append('Ozone Milliamps (Last 10 Regens)')
 
     # append number of errors on unit
     unitErrors.append(s.find('span',class_='text-nowrap').text.strip())
@@ -342,19 +348,40 @@ def scrape_unit(s: bs):
     else:
         usageChartHour.append('data not populated')
 
-    # cap rem graph
+    # append data from cap rem graph
     if s.find('canvas',{'id':'remainingCapacityChart'}) != None:
         append_dict_js(s.find('canvas',{'id':'remainingCapacityChart'})
                         .find_next_sibling().text,capRemGraph)
     else:
         capRemGraph.append('data not populated')
 
-    # daily usage chart
+    # append data from daily usage chart
     if s.find('canvas',{'id':'dailyWaterUsageChart'}) != None:
         append_dict_js(s.find('canvas',{'id':'dailyWaterUsageChart'})
                         .find_next_sibling().text,usageChartDay)
     else:
         usageChartDay.append('data not populated')
+
+    # find rows in the regen data table
+    tableRows = s.find('table', class_='table table-striped table-sm dataTable no-footer regen-brine').find('tbody').find_all('tr')
+    
+    # find headers in the regen data table (dates ONLY)
+    tableHeaders = []
+    for x in s.find('table',class_='table table-striped table-sm dataTable no-footer regen-brine').find('thead').find('tr').find_all('td'):
+        tableHeaders.append(x.get_text())
+    
+    # append brine % data
+    td = []
+    for x in tableRows[0].find_all('td'):
+        td.append(x.get_text())
+    append_dict_tab(tableHeaders, td, brineTable)
+
+    # append ozone milliamps data
+    td = []
+    for x in tableRows[1].find_all('td'):
+        td.append(x.get_text())
+    append_dict_tab(tableHeaders, td, ozoneTable)
+
 
 '''
 scrape_consumer scrapes data from the consumer page of a given unit page and appends it to corresponding 
