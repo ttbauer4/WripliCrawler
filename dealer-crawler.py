@@ -307,7 +307,15 @@ def scrape_unit(s: bs):
     ozoneTable.append('Ozone Milliamps (Last 10 Regens)')
 
     # append number of errors on unit
-    unitErrors.append(s.find('span',class_='text-nowrap').text.strip())
+    status = s.find('span',class_='text-nowrap').text.strip()
+    if status != '0 Errors':
+        errs = s.find('div',{'id':'valveStatus-Performance'}).find_all('p')[2:]
+        status += ': '
+        for x in errs:
+            status += x.text + ', '
+        status = status[:-2]
+    unitErrors.append(status)
+
 
     # find rows in the general data table
     tableRows = s.find('table',{'id':'DailyGeneralDataTable'}).find('tbody').find_all('tr')
