@@ -434,7 +434,8 @@ def scrape_consumer(s:bs):
 # BEGIN CRAWLING
 try:
     # driver at homepage
-    driver.get(homeURL)
+    if driver.find_element(By.XPATH, '//div[@id="WR_Cards"]') == None:
+        driver.get(homeURL)
     soup = bs(driver.page_source, 'html.parser')
 
     # check for timeout
@@ -481,14 +482,14 @@ if i == '1': # get data from a random unit
         cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
         cr = cri
         y = 0
-        while (cri == cr or cr == '0') and y < 30:
+        while (cri == cr or cr == '0') and y < 7:
             time.sleep(1)
             cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
             y+=1
 
         # wait for SSID
         wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-        while wifi == "Getting Valve SSID..." and y < 10:
+        while wifi == "Getting Valve SSID..." and y < 15:
             time.sleep(1)
             wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
             y+=1
@@ -546,14 +547,14 @@ elif i == '2': # get data from all units
             cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
             cr = cri
             y = 0
-            while (cri == cr or cr == '0') and y < 30:
+            while (cri == cr or cr == '0') and y < 7:
                 time.sleep(1)
                 cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
                 y+=1
 
             # wait for SSID
             wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-            while wifi == "Getting Valve SSID..." and y < 10:
+            while wifi == "Getting Valve SSID..." and y < 15:
                 time.sleep(1)
                 wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
                 y+=1
@@ -609,14 +610,14 @@ elif i == '3': # get data from a specific unit
         cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
         cr = cri
         y = 0
-        while (cri == cr or cr == '0') and y < 30:
+        while (cri == cr or cr == '0') and y < 7:
             time.sleep(1)
             cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
             y+=1
 
         # wait for SSID
         wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-        while wifi == "Getting Valve SSID..." and y < 10:
+        while wifi == "Getting Valve SSID..." and y < 15:
             time.sleep(1)
             wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
             y+=1
