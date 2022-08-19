@@ -233,9 +233,8 @@ currFlowIcon = []
 usageTodayIcon = []
 peakFlowRateIcon = []
 capRemIcon = []
-ssid = []
 rssi = []
-consumArrays = [currFlowIcon, usageTodayIcon, peakFlowRateIcon, capRemIcon, ssid, rssi]
+consumArrays = [currFlowIcon, usageTodayIcon, peakFlowRateIcon, capRemIcon, rssi]
 
 '''
 scrape_home scrapes data from the homepage and appends it to corresponding 
@@ -394,7 +393,6 @@ def scrape_consumer(s:bs):
     usageTodayIcon.clear()
     peakFlowRateIcon.clear()
     capRemIcon.clear()
-    ssid.clear()
     rssi.clear()
 
     # append timestamp, unit MAC address, and unit name
@@ -408,7 +406,6 @@ def scrape_consumer(s:bs):
     usageTodayIcon.append('Gallons Used Today')
     peakFlowRateIcon.append('Peak Flow Rate-Last 7 Days')
     capRemIcon.append('Capacity Remaining Until Regen')
-    ssid.append('SSID (WiFi Connection)')
     rssi.append('RSSI (Signal Strength)')
 
     # append current flow rate
@@ -423,12 +420,9 @@ def scrape_consumer(s:bs):
     # append capacity remaining
     capRemIcon.append(s.find('div',{'id':'divCapacityRemaining'}).text)
 
-    # append SSID
-    ssid.append(s.find('label',{'id':'ValveSSID'}).text)
-
     # append RSSI
     sig = s.find('img',{'id':'valveSignalStrengthImg'})['src']
-    sig = sig[sig.find('_')+1:-4].replace('_',', ').replace('bar', ' bar')
+    sig = sig[sig.find('_')+1:-4].replace('_',': ').replace('bar', ' bar')
     rssi.append(sig)
 
 # BEGIN CRAWLING
@@ -485,13 +479,6 @@ if i == '1': # get data from a random unit
         while (cri == cr or cr == '0') and y < 7:
             time.sleep(1)
             cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
-            y+=1
-
-        # wait for SSID
-        wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-        while wifi == "Getting Valve SSID..." and y < 15:
-            time.sleep(1)
-            wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
             y+=1
         
         soup = bs(driver.page_source,'html.parser')
@@ -552,13 +539,6 @@ elif i == '2': # get data from all units
                 cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
                 y+=1
 
-            # wait for SSID
-            wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-            while wifi == "Getting Valve SSID..." and y < 15:
-                time.sleep(1)
-                wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-                y+=1
-            
             soup = bs(driver.page_source,'html.parser')
 
             # check for timeout
@@ -615,13 +595,6 @@ elif i == '3': # get data from a specific unit
             cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
             y+=1
 
-        # wait for SSID
-        wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-        while wifi == "Getting Valve SSID..." and y < 15:
-            time.sleep(1)
-            wifi = driver.find_element(By.XPATH, '//label[@id="ValveSSID"]').text
-            y+=1
-        
         soup = bs(driver.page_source,'html.parser')
 
         # check for timeout
