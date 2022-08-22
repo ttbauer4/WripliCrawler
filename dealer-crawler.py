@@ -127,14 +127,20 @@ else: # command line arguments present
 # hide cursor in console window
 cursor.hide()
 
-# initialize browser options
-fireFoxOptions = webdriver.FirefoxOptions()
-fireFoxOptions.headless = True
+try:
+    # initialize browser options
+    fireFoxOptions = webdriver.FirefoxOptions()
+    fireFoxOptions.headless = True
 
-# create new Firefox driver and retreive login site
-driver = webdriver.Firefox(options=fireFoxOptions, service=
-    Service(GeckoDriverManager().install()))
-driver.implicitly_wait(10)
+    # create new Firefox driver and retreive login site
+    driver = webdriver.Firefox(options=fireFoxOptions, service=
+        Service(GeckoDriverManager().install()))
+    driver.implicitly_wait(10)
+except:
+    traceback.print_exc()
+    print('\nEXCEPTION CAUGHT ON LOGIN: ENSURE YOU HAVE INSTALLED MOZILLA FIREFOX FROM https://www.mozilla.org/en-US/firefox/new/')
+    cursor.show()
+    sys.exit()
 
 try:
     # initialize progress %
@@ -155,7 +161,9 @@ try:
     submit.click()
 except:
     traceback.print_exc()
-    print('EXCEPTION CAUGHT ON LOGIN')
+    print('\nEXCEPTION CAUGHT ON LOGIN')
+    cursor.show()
+    sys.exit()
 
 '''
 append_all appends a given value to each array within an array.
@@ -451,6 +459,8 @@ try:
 except:
     traceback.print_exc()
     print('EXCEPTION CAUGHT WHILE SCRAPING HOME')
+    cursor.show()
+    sys.exit()
 
 # write homepage data to CSV
 write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
@@ -512,6 +522,8 @@ if i == '1': # get data from a random unit
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT\n')
         print('MAC: ' + mac)
+        cursor.show()
+        sys.exit()
 
 elif i == '2': # get data from all units
     try:
@@ -571,6 +583,8 @@ elif i == '2': # get data from all units
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
         print('MAC: ' + mac)
+        cursor.show()
+        sys.exit()
 
 elif i == '3': # get data from a specific unit
     try:
@@ -626,6 +640,8 @@ elif i == '3': # get data from a specific unit
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
         print('MAC: ' + mac)
+        cursor.show()
+        sys.exit()
 
 else: # invalid command line argument
     print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
