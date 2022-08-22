@@ -55,7 +55,9 @@ except:
     print('  - private.json IS PROPERLY FORMATTED (SEE https://www.w3schools.com/js/js_json_syntax.asp FOR MORE INFO)')
     print('  - private.json CONTAINS THE FIELDS \"Email\", \"Password\", \"Mac Array\", \"File Name\", \"login URL\", \"home URL\", \"unit URL\", AND \"consumer URL\"\n')
     cursor.show()
-    sys.exit()
+    e = input('press \'Enter\' to exit.\n')
+    if e != None:
+        sys.exit()
 
 # set output file path
 if getattr(sys,'frozen',False):
@@ -79,7 +81,9 @@ def reset():
         traceback.print_exc()
         print('EXCEPTION CAUGHT ON RESET: ENSURE THAT ' + fileName + ' IS NOT OPEN ON YOUR COMPUTER\n')
         cursor.show()
-        sys.exit()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
 
     # create new file with headers
     file = open(filePath, 'w')
@@ -157,7 +161,9 @@ except:
     print('  - YOU HAVE INSTALLED MOZILLA FIREFOX FROM https://www.mozilla.org/en-US/firefox/new/')
     print('  - YOUR DEVICE IS CONNECTED TO THE INTERNET\n')
     cursor.show()
-    sys.exit()
+    e = input('press \'Enter\' to exit.\n')
+    if e != None:
+        sys.exit()
 
 try:
     # initialize progress %
@@ -180,7 +186,9 @@ except:
     traceback.print_exc()
     print('EXCEPTION CAUGHT ON LOGIN: ENSURE PRIVATE.JSON CONTAINS THE ACCURATE LOGIN PAGE URL\n')
     cursor.show()
-    sys.exit()
+    e = input('press \'Enter\' to exit.\n')
+    if e != None:
+        sys.exit()
 
 '''
 append_all appends a given value to each array within an array.
@@ -236,7 +244,9 @@ def write_to_csv(path: str, delim: str, *args : array):
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE TRYING TO WRITE TO ' + fileName + ', ENSURE THAT IT IS NOT OPEN ON YOUR COMPUTER\n')
         cursor.show()
-        sys.exit()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
 
 # homepage fields to scrape
 assignedOnline = []
@@ -487,7 +497,9 @@ except:
     traceback.print_exc()
     print('\nEXCEPTION CAUGHT WHILE SCRAPING HOME: ENSURE THAT THE LOGIN INFORMATION AND HOME PAGE URL IN PRIVATE.JSON ARE CORRECT\n')
     cursor.show()
-    sys.exit()
+    e = input('press \'Enter\' to exit.\n')
+    if e != None:
+        sys.exit()
 
 # scrape unit data based on user input
 if i == '1': # get data from a random unit
@@ -547,7 +559,9 @@ if i == '1': # get data from a random unit
         print('AT MAC ADDRESS: ' + mac)
         print('AT URL: ' + driver.current_url + '\n')
         cursor.show()
-        sys.exit()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
 
 elif i == '2': # get data from all units
     try:
@@ -609,7 +623,9 @@ elif i == '2': # get data from all units
         print('AT MAC ADDRESS: ' + mac)
         print('AT URL: ' + driver.current_url + '\n')
         cursor.show()
-        sys.exit()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
 
 elif i == '3': # get data from a specific unit
     try:
@@ -667,7 +683,9 @@ elif i == '3': # get data from a specific unit
         print('AT MAC ADDRESS: ' + mac)
         print('AT URL: ' + driver.current_url + '\n')
         cursor.show()
-        sys.exit()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
 
 else: # invalid command line argument
     print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
