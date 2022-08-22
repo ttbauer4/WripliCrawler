@@ -68,7 +68,7 @@ def reset():
             print('\nfile not found')
     except:
         traceback.print_exc()
-        print('\nEXCEPTION CAUGHT ON RESET: ENSURE THAT ' + fileName + ' IS NOT OPEN ON YOUR COMPUTER')
+        print('EXCEPTION CAUGHT ON RESET: ENSURE THAT ' + fileName + ' IS NOT OPEN ON YOUR COMPUTER\n')
         cursor.show()
         sys.exit()
 
@@ -111,7 +111,7 @@ if len(sys.argv) == 1: # command line arguments absent
             if x == mac:
                 valid = True
         while not valid:
-            mac = input('invalid mac address not found in macArray; try again:\n')
+            mac = input('invalid mac address not found in Mac Array; try again:\n')
             for x in macArray:
                 if x == mac:
                     valid = True
@@ -144,7 +144,10 @@ try:
     driver.implicitly_wait(10)
 except:
     traceback.print_exc()
-    print('\nEXCEPTION CAUGHT ON LOGIN: ENSURE YOU HAVE INSTALLED MOZILLA FIREFOX FROM https://www.mozilla.org/en-US/firefox/new/')
+    print('\nEXCEPTION CAUGHT ON LOGIN. MAKE SURE:')
+    print('  - YOU HAVE INSTALLED MOZILLA FIREFOX FROM https://www.mozilla.org/en-US/firefox/new/')
+    print('  - YOUR DEVICE IS CONNECTED TO THE INTERNET\n')
+
     cursor.show()
     sys.exit()
 
@@ -167,7 +170,7 @@ try:
     submit.click()
 except:
     traceback.print_exc()
-    print('\nEXCEPTION CAUGHT ON LOGIN')
+    print('EXCEPTION CAUGHT ON LOGIN: ENSURE PRIVATE.JSON CONTAINS THE ACCURATE LOGIN PAGE URL\n')
     cursor.show()
     sys.exit()
 
@@ -223,7 +226,7 @@ def write_to_csv(path: str, delim: str, *args : array):
             file.close()
     except:
         traceback.print_exc()
-        print('\nEXCEPTION CAUGHT WHILE TRYING TO WRITE TO ' + fileName + ', ENSURE THAT IT IS NOT OPEN ON YOUR COMPUTER')
+        print('EXCEPTION CAUGHT WHILE TRYING TO WRITE TO ' + fileName + ', ENSURE THAT IT IS NOT OPEN ON YOUR COMPUTER\n')
         cursor.show()
         sys.exit()
 
@@ -474,7 +477,7 @@ try:
         assignedInactive, unassigned, totalDealers)
 except:
     traceback.print_exc()
-    print('\nEXCEPTION CAUGHT WHILE SCRAPING HOME')
+    print('\nEXCEPTION CAUGHT WHILE SCRAPING HOME: ENSURE THAT THE LOGIN INFORMATION AND HOME PAGE URL IN PRIVATE.JSON ARE CORRECT\n')
     cursor.show()
     sys.exit()
 
@@ -532,8 +535,9 @@ if i == '1': # get data from a random unit
         print()
     except:
         traceback.print_exc()
-        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT\n')
-        print('MAC: ' + mac)
+        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
+        print('AT MAC ADDRESS: ' + mac)
+        print('AT URL: ' + driver.current_url + '\n')
         cursor.show()
         sys.exit()
 
@@ -594,7 +598,8 @@ elif i == '2': # get data from all units
     except:
         traceback.print_exc()
         print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
-        print('MAC: ' + mac)
+        print('AT MAC ADDRESS: ' + mac)
+        print('AT URL: ' + driver.current_url + '\n')
         cursor.show()
         sys.exit()
 
@@ -651,15 +656,20 @@ elif i == '3': # get data from a specific unit
     except:
         traceback.print_exc()
         print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
-        print('MAC: ' + mac)
+        print('AT MAC ADDRESS: ' + mac)
+        print('AT URL: ' + driver.current_url + '\n')
         cursor.show()
         sys.exit()
 
 else: # invalid command line argument
     print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
 
-# close the webdriver
-driver.close()
+try:
+    # close the webdriver
+    driver.close()
+except:
+    traceback.print_exc()
+    print('\nUNABLE TO CLOSE THE WEBDRIVER\n')
 
 # print execution runtime
 td = datetime.now() - kickoff
