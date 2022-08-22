@@ -4,6 +4,7 @@
 ## VERSION 1.3
   - Implemented private.json config file
   - Implemented ability to crawl consumer page
+  - Improved exception handling
   - Improved UI
 
 ## VERSION 1.2: 
