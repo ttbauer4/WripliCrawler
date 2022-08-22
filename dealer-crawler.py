@@ -59,12 +59,18 @@ reset removes any existing WripliData.csv file in the same directory then
     initializes a new one
 '''
 def reset():
+    try:
     # remove existing file
-    if (os.path.exists(filePath) and os.path.isfile(filePath)):
-        os.remove(filePath)
-        print('\nfile deleted')
-    else:
-        print('\nfile not found')
+        if (os.path.exists(filePath) and os.path.isfile(filePath)):
+            os.remove(filePath)
+            print('\nfile deleted')
+        else:
+            print('\nfile not found')
+    except:
+        traceback.print_exc()
+        print('\nEXCEPTION CAUGHT ON RESET: ENSURE THAT ' + fileName + ' IS NOT OPEN ON YOUR COMPUTER')
+        cursor.show()
+        sys.exit()
 
     # create new file with headers
     file = open(filePath, 'w')
@@ -209,11 +215,17 @@ writeToCSV writes arrays to a CSV file as rows
 :param *args: variable number of array arguments to be written to given CSV
 '''
 def write_to_csv(path: str, delim: str, *args : array):
-    with open(path, 'a', newline='') as file:
-        writer = csv.writer(file, delimiter=delim)
-        for x in args:
-            writer.writerow(x)    
-        file.close()
+    try:
+        with open(path, 'a', newline='') as file:
+            writer = csv.writer(file, delimiter=delim)
+            for x in args:
+                writer.writerow(x)    
+            file.close()
+    except:
+        traceback.print_exc()
+        print('\nEXCEPTION CAUGHT WHILE TRYING TO WRITE TO ' + fileName + ', ENSURE THAT IT IS NOT OPEN ON YOUR COMPUTER')
+        cursor.show()
+        sys.exit()
 
 # homepage fields to scrape
 assignedOnline = []
@@ -456,15 +468,15 @@ try:
         append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), homeArrays)
         append_all('ERROR:', homeArrays)
         append_all(soup.find('p',{'id':'ErrorNumber'}).text, homeArrays)
+    
+    # write homepage data to CSV
+    write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
+        assignedInactive, unassigned, totalDealers)
 except:
     traceback.print_exc()
-    print('EXCEPTION CAUGHT WHILE SCRAPING HOME')
+    print('\nEXCEPTION CAUGHT WHILE SCRAPING HOME')
     cursor.show()
     sys.exit()
-
-# write homepage data to CSV
-write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
-    assignedInactive, unassigned, totalDealers)
 
 # scrape unit data based on user input
 if i == '1': # get data from a random unit
@@ -520,7 +532,7 @@ if i == '1': # get data from a random unit
         print()
     except:
         traceback.print_exc()
-        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT\n')
+        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT\n')
         print('MAC: ' + mac)
         cursor.show()
         sys.exit()
@@ -581,7 +593,7 @@ elif i == '2': # get data from all units
         print()
     except:
         traceback.print_exc()
-        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
         print('MAC: ' + mac)
         cursor.show()
         sys.exit()
@@ -638,7 +650,7 @@ elif i == '3': # get data from a specific unit
         print()
     except:
         traceback.print_exc()
-        print('EXCEPTION CAUGHT WHILE SCRAPING UNIT')
+        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
         print('MAC: ' + mac)
         cursor.show()
         sys.exit()
