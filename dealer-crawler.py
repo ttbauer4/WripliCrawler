@@ -34,19 +34,28 @@ if getattr(sys,'frozen',False):
 else:
     filePath = os.path.dirname(os.path.abspath(__file__)) + '/' + 'private.json'
 
-with open(filePath, 'r') as f:
-    credentials = json.load(f)
-    dealerUser = credentials["Email"]
-    dealerPass = credentials["Password"]
+try: 
+    with open(filePath, 'r') as f:
+        credentials = json.load(f)
+        dealerUser = credentials["Email"]
+        dealerPass = credentials["Password"]
 
-    macArray = credentials["Mac Array"]
+        macArray = credentials["Mac Array"]
 
-    fileName = credentials["File Name"]
+        fileName = credentials["File Name"]
 
-    loginURL = credentials["login URL"]
-    homeURL = credentials["home URL"]
-    unitURL = credentials["unit URL"]
-    consumURL = credentials["consumer URL"]
+        loginURL = credentials["login URL"]
+        homeURL = credentials["home URL"]
+        unitURL = credentials["unit URL"]
+        consumURL = credentials["consumer URL"]
+except:
+    traceback.print_exc()
+    print('\nEXCEPTION CAUGHT WHILE LOADING INFO FROM private.json. MAKE SURE:')
+    print('  - private.json IS IN THE SAME FOLDER/DIRECTORY AS dealer-crawler')
+    print('  - private.json IS PROPERLY FORMATTED (SEE https://www.w3schools.com/js/js_json_syntax.asp FOR MORE INFO)')
+    print('  - private.json CONTAINS THE FIELDS \"Email\", \"Password\", \"Mac Array\", \"File Name\", \"login URL\", \"home URL\", \"unit URL\", AND \"consumer URL\"\n')
+    cursor.show()
+    sys.exit()
 
 # set output file path
 if getattr(sys,'frozen',False):
@@ -147,7 +156,6 @@ except:
     print('\nEXCEPTION CAUGHT ON LOGIN. MAKE SURE:')
     print('  - YOU HAVE INSTALLED MOZILLA FIREFOX FROM https://www.mozilla.org/en-US/firefox/new/')
     print('  - YOUR DEVICE IS CONNECTED TO THE INTERNET\n')
-
     cursor.show()
     sys.exit()
 
