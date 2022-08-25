@@ -6,6 +6,7 @@
   - Implemented ability to crawl consumer page
   - Improved exception handling
   - Improved UI
+  - Fixed bugs
 
 ## VERSION 1.2: 
   - Implemented ability to pull data from one, all, or a random unit
