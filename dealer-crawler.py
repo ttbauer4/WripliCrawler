@@ -7,10 +7,10 @@ activity and logs data
 '''
 
 __author__ = 'Trenton Bauer'
-__version__ = 'V1.3'
+__version__ = 'V1.4'
 __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
-__status__ = 'Production'
+__status__ = 'Development'
 
 import sys, os
 import csv
@@ -25,6 +25,7 @@ from time import localtime, strftime
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
+from selenium import common
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
@@ -148,11 +149,15 @@ try:
     # initialize browser options
     fireFoxOptions = webdriver.FirefoxOptions()
     fireFoxOptions.headless = True
+    fireFoxOptions.page_load_strategy = 'eager'
 
     # create new Firefox driver and retreive login site
     driver = webdriver.Firefox(options=fireFoxOptions, service=
         Service(GeckoDriverManager().install()))
-    driver.implicitly_wait(10)
+
+    # set timeout
+    driver.set_page_load_timeout(60)
+
 except:
     traceback.print_exc()
     print('\nEXCEPTION CAUGHT ON LOGIN. MAKE SURE:')
@@ -180,6 +185,16 @@ try:
 
     submit = driver.find_element(By.XPATH, '//input[@type="submit"]')
     submit.click()
+
+except common.TimeoutException:
+    traceback.print_exc()
+    print('LOGIN PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
+    print('  - YOUR NETWORK CONNECTION')
+    print('  - THAT ' + driver.current_url + ' IS NOT UNDER MAINTENANCE\n')
+    cursor.show()
+    e = input('press \'Enter\' to exit.\n')
+    if e != None:
+        sys.exit()
 except:
     traceback.print_exc()
     print('EXCEPTION CAUGHT ON LOGIN: ENSURE PRIVATE.JSON CONTAINS THE ACCURATE LOGIN PAGE URL\n')
@@ -490,6 +505,16 @@ try:
     # write homepage data to CSV
     write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
         assignedInactive, unassigned, totalDealers)
+
+except common.TimeoutException:
+    traceback.print_exc()
+    print('HOME PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
+    print('  - YOUR NETWORK CONNECTION')
+    print('  - THAT ' + driver.current_url + ' IS NOT UNDER MAINTENANCE\n')
+    cursor.show()
+    e = input('press \'Enter\' to exit.\n')
+    if e != None:
+        sys.exit()
 except:
     traceback.print_exc()
     print('\nEXCEPTION CAUGHT WHILE SCRAPING HOME: ENSURE THAT THE LOGIN INFORMATION AND HOME PAGE URL IN PRIVATE.JSON ARE CORRECT\n')
@@ -550,6 +575,16 @@ if i == '1': # get data from a random unit
         for x in consumArrays:
             write_to_csv(filePath, ',', x)
         print()
+
+    except common.TimeoutException:
+        traceback.print_exc()
+        print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
+        print('  - YOUR NETWORK CONNECTION')
+        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY\n')
+        cursor.show()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
     except:
         traceback.print_exc()
         print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
@@ -614,6 +649,16 @@ elif i == '2': # get data from all units
             for x in consumArrays:
                 write_to_csv(filePath, ',', x)
         print()
+
+    except common.TimeoutException:
+        traceback.print_exc()
+        print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
+        print('  - YOUR NETWORK CONNECTION')
+        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY\n')
+        cursor.show()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
     except:
         traceback.print_exc()
         print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
@@ -674,6 +719,16 @@ elif i == '3': # get data from a specific unit
         for x in consumArrays:
             write_to_csv(filePath, ',', x)
         print()
+
+    except common.TimeoutException:
+        traceback.print_exc()
+        print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
+        print('  - YOUR NETWORK CONNECTION')
+        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY\n')
+        cursor.show()
+        e = input('press \'Enter\' to exit.\n')
+        if e != None:
+            sys.exit()
     except:
         traceback.print_exc()
         print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
@@ -701,6 +756,5 @@ print('Execution took ' + str(td.total_seconds()) + ' seconds.')
 # indicate completion
 print('Complete.\n')
 
-time.sleep(1)
 cursor.show()
 sys.exit()
