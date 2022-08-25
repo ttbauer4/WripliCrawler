@@ -102,7 +102,6 @@ if len(sys.argv) == 1: # command line arguments absent
     while i != '1' and i != '2' and i != '3' and i != '4' and i != '5':
         i = input('invalid input, enter \'1\' or \'2\' or \'3\' or \'4\' or \'5\'\n')
 
-    
     while i == '4': # reset datasheet loop
         reset()
         i = input('\nWould you like to:\n(1) get data from a random unit\n(2) '+ 
@@ -115,7 +114,6 @@ if len(sys.argv) == 1: # command line arguments absent
         print('\nComplete.\n')
         cursor.show()
         sys.exit()
-
     
     if i == '3': # prompt user to input MAC address
         mac = input('Enter the unit\'s MAC address:\n')
@@ -429,7 +427,6 @@ def scrape_unit(s: bs):
     for x in tableRows[1].find_all('td'):
         td.append(x.get_text())
     append_dict_tab(tableHeaders, td, ozoneTable)
-
 
 '''
 scrape_consumer scrapes data from the consumer page of a given unit page and appends it to corresponding 
