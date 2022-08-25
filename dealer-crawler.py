@@ -222,7 +222,10 @@ appends it to the given array
 :param arr: array to which the dictionary is appended
 '''
 def append_dict_tab(h: array, d: array, arr: array):
-    arr.append(dict(zip(h,d)))
+    if bool(dict(zip(h,d))):    
+        arr.append(dict(zip(h,d)))
+    else:
+        arr.append('data not populated')
 
 '''
 append_dict_js creates a dictionary from javascript content found on the unit page 
@@ -237,8 +240,10 @@ def append_dict_js (script: str, arr: array):
                     script.find('labels:')) - 1)].split('","')
     data = script[(script.find('data: [') + 7) : script.find( '],', 
                   script.find('data: ['))].split(',')
-    arr.append(dict(zip(labels,data)))
-
+    if bool(dict(zip(labels,data))):
+        arr.append(dict(zip(labels,data)))
+    else:
+        arr.append('data not populated')
 '''
 write_to_csv writes arrays to a CSV file as rows
 
