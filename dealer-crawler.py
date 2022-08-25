@@ -585,7 +585,8 @@ if i == '1': # get data from a random unit
         traceback.print_exc()
         print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
         print('  - YOUR NETWORK CONNECTION')
-        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY\n')
+        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY')
+        print('THEN RE-RUN THE APPLICATION\n')
         cursor.show()
         e = input('press \'Enter\' to exit.\n')
         if e != None:
@@ -659,7 +660,8 @@ elif i == '2': # get data from all units
         traceback.print_exc()
         print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
         print('  - YOUR NETWORK CONNECTION')
-        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY\n')
+        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY')
+        print('THEN RE-RUN THE APPLICATION\n')
         cursor.show()
         e = input('press \'Enter\' to exit.\n')
         if e != None:
@@ -729,7 +731,8 @@ elif i == '3': # get data from a specific unit
         traceback.print_exc()
         print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
         print('  - YOUR NETWORK CONNECTION')
-        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY\n')
+        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY')
+        print('THEN RE-RUN THE APPLICATION\n')
         cursor.show()
         e = input('press \'Enter\' to exit.\n')
         if e != None:
