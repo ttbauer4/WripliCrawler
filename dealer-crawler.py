@@ -225,7 +225,7 @@ def append_dict_js (script: str, arr: array):
     arr.append(dict(zip(labels,data)))
 
 '''
-writeToCSV writes arrays to a CSV file as rows
+write_to_csv writes arrays to a CSV file as rows
 
 :param path: path to CSV file
 :param delim: string delimiter for writing arrays to rows
