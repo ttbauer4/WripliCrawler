@@ -662,6 +662,7 @@ except:
     print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
     print('AT MAC ADDRESS: ' + mac)
     print('AT URL: ' + driver.current_url + '\n')
+    print('THE APPLICATION MIGHT\'VE ENCOUNTERED AN ERROR IN THE BROWSER. CHECK THAT YOUR NETWORK CONNECTION IS STABLE AND TRY AGAIN.')
     cursor.show()
     e = input('press \'Enter\' to exit or close this window or close this window.\n')
     if e != None:
