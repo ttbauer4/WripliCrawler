@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-dealer-crawler.py: crawls stage site from dealer perspective; simulates user 
-activity and logs data
+dealer-crawler.py: crawls stage site from dealer perspective, simulates user activity and logs data
 '''
 
 __author__ = 'Trenton Bauer'
@@ -36,7 +35,7 @@ else:
     filePath = os.path.dirname(os.path.abspath(__file__)) + '/' + 'private.json'
 
 try: 
-    with open(filePath, 'r') as f:
+    with open(filePath, 'r') as f: # collect user data from private.json
         credentials = json.load(f)
         dealerUser = credentials["Email"]
         dealerPass = credentials["Password"]
@@ -248,6 +247,7 @@ def append_dict_js (script: str, arr: array):
         arr.append(dict(zip(labels,data)))
     else:
         arr.append('data not populated')
+
 '''
 write_to_csv writes arrays to a CSV file as rows
 
@@ -260,7 +260,7 @@ def write_to_csv(path: str, delim: str, *args : array):
         with open(path, 'a', newline='') as file:
             writer = csv.writer(file, delimiter=delim)
             for x in args:
-                writer.writerow(x)    
+                writer.writerows(x)    
             file.close()
     except:
         traceback.print_exc()
@@ -270,35 +270,6 @@ def write_to_csv(path: str, delim: str, *args : array):
         if e != None:
             sys.exit()
 
-# homepage fields to scrape
-assignedOnline = []
-assignedOffline = []
-assignedInactive = []
-unassigned = []
-totalDealers = []
-homeArrays = [assignedOnline, assignedOffline, assignedInactive, unassigned, totalDealers]
-
-# performance page fields to scrape
-unitErrors = []
-totalUsage = []
-usage = []
-maxFlow = []
-flags = []
-usageChartHour = []
-capRemGraph = []
-usageChartDay = []
-brineTable = []
-ozoneTable = []
-perfArrays = [unitErrors, totalUsage, usage, maxFlow, flags, usageChartHour, capRemGraph, usageChartDay, brineTable, ozoneTable]
-
-# consumer view fields to scrape
-currFlowIcon = []
-usageTodayIcon = []
-peakFlowRateIcon = []
-capRemIcon = []
-rssi = []
-consumArrays = [currFlowIcon, usageTodayIcon, peakFlowRateIcon, capRemIcon, rssi]
-
 '''
 scrape_home scrapes data from the homepage and appends it to corresponding 
     arrays.
@@ -306,6 +277,14 @@ scrape_home scrapes data from the homepage and appends it to corresponding
 :param s: a Beautiful Soup object with the home page's source
 '''
 def scrape_home(s: bs):
+    # homepage fields to scrape
+    assignedOnline = []
+    assignedOffline = []
+    assignedInactive = []
+    unassigned = []
+    totalDealers = []
+    homeArrays = [assignedOnline, assignedOffline, assignedInactive, unassigned, totalDealers]
+
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
     append_all(curTime, homeArrays)
@@ -322,26 +301,34 @@ def scrape_home(s: bs):
     # array of values found on homepage
     homeValues = []
 
-    # scrape values from homepage and add to array
-    if len(s.find_all('h5')) >= 5:
-        for x in s.find_all('h5'):
-            if x != None:
-                homeValues.append(str(x.text))
-            else:
-                homeValues.append('error')  
-    else:
-        homeValues.append('error finding all homepage data')
-        homeValues.append('error finding all homepage data')
-        homeValues.append('error finding all homepage data')
-        homeValues.append('error finding all homepage data')
-        homeValues.append('error finding all homepage data')
+    if s.find('form',{'id':'CatchAllForm'}) == None: # scrape homepage data
+        # scrape values from homepage and add to array
+        if len(s.find_all('h5')) >= 5:
+            for x in s.find_all('h5'):
+                if x != None:
+                    homeValues.append(str(x.text))
+                else:
+                    homeValues.append('error')  
+        else:
+            homeValues.append('error finding all homepage data')
+            homeValues.append('error finding all homepage data')
+            homeValues.append('error finding all homepage data')
+            homeValues.append('error finding all homepage data')
+            homeValues.append('error finding all homepage data')
+        
+        # append data from homepage
+        assignedOnline.append(str(homeValues[0]))
+        assignedOffline.append(str(homeValues[1]))
+        assignedInactive.append(str(homeValues[2]))
+        unassigned.append(str(homeValues[3]))
+        totalDealers.append(str(homeValues[4]))
+
+    else: # output error message
+        append_all('ERROR:', homeArrays)
+        append_all(s.find('p',{'id':'ErrorNumber'}).text, homeArrays)
     
-    # append data from homepage
-    assignedOnline.append(str(homeValues[0]))
-    assignedOffline.append(str(homeValues[1]))
-    assignedInactive.append(str(homeValues[2]))
-    unassigned.append(str(homeValues[3]))
-    totalDealers.append(str(homeValues[4]))
+    # write homepage data to CSV
+    write_to_csv(filePath, ',', homeArrays)
 
 '''
 scrape_perf scrapes data from a given unit's performance page and appends it to corresponding 
@@ -351,17 +338,19 @@ scrape_perf scrapes data from a given unit's performance page and appends it to 
 '''
 def scrape_perf(s: bs):
     global mac
-
-    unitErrors.clear()
-    totalUsage.clear()
-    usage.clear()
-    maxFlow.clear()
-    flags.clear()
-    usageChartHour.clear()
-    usageChartDay.clear()
-    capRemGraph.clear()
-    brineTable.clear()
-    ozoneTable.clear()
+    
+    # performance page fields to scrape
+    unitErrors = []
+    totalUsage = []
+    usage = []
+    maxFlow = []
+    flags = []
+    usageChartHour = []
+    capRemGraph = []
+    usageChartDay = []
+    brineTable = []
+    ozoneTable = []
+    perfArrays = [unitErrors, totalUsage, usage, maxFlow, flags, usageChartHour, capRemGraph, usageChartDay, brineTable, ozoneTable]
 
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
@@ -381,88 +370,113 @@ def scrape_perf(s: bs):
     brineTable.append('Brine % (Last 10 Regens)')
     ozoneTable.append('Ozone Milliamps (Last 10 Regens)')
 
-    # append number of errors on unit
-    status = s.find('span',class_='text-nowrap').text.strip()
-    if status != '0 Errors':
-        errs = s.find('div',{'id':'valveStatus-Performance'}).find_all('p')[2:]
-        status += ': '
-        for x in errs:
-            status += x.text + ', '
-        status = status[:-2]
-    unitErrors.append(status)
+    if s.find('form',{'id':'CatchAllForm'}) == None: # scrape data from performance view
+        if s.find('span',class_='text-nowrap') != None: # append number of errors on unit
+            status = s.find('span',class_='text-nowrap').text.strip()
+            if status != '0 Errors':
+                if bool(s.find('div',{'id':'valveStatus-Performance'}).find_all('p')):
+                    errs = s.find('div',{'id':'valveStatus-Performance'}).find_all('p')[2:]
+                    status += ': '
+                    for x in errs:
+                       status += x.text + ', '
+                    status = status[:-2]
+            unitErrors.append(status)
+        else: # append error message
+            unitErrors.append('error: not found')
 
+        # find rows in the general data table
+        tableRows = s.find('table',{'id':'DailyGeneralDataTable'}).find('tbody').find_all('tr')
 
-    # find rows in the general data table
-    tableRows = s.find('table',{'id':'DailyGeneralDataTable'}).find('tbody').find_all('tr')
+        # find headers in the general data table (dates ONLY)
+        tableHeaders = []
+        for x in s.find('table',{'id':'DailyGeneralDataTable'}).find('thead').find('tr').find_all('th'):
+            tableHeaders.append(x.get_text().replace('\n',''))
+        del tableHeaders[:2]
 
-    # find headers in the general data table (dates ONLY)
-    tableHeaders = []
-    for x in s.find('table',{'id':'DailyGeneralDataTable'}).find('thead').find('tr').find_all('th'):
-        tableHeaders.append(x.get_text().replace('\n',''))
-    del tableHeaders[:2]
+        if bool(tableRows) and tableRows[0] != None and bool(tableRows[0].find_all('th')) and tableRows[0].find_all('th')[1] != None: # append total usage (in gallons) this week
+            totalUsage.append(tableRows[0].find_all('th')[1].text)
+        else: # append error message
+            totalUsage.append('error: not found')
 
-    # append total usage (in gallons) this week
-    totalUsage.append(tableRows[0].find_all('th')[1].text)
+        # append usage data for this week
+        td=[]
+        if bool(tableRows) and tableRows[0] != None:
+            for x in tableRows[0].find_all('td'):
+                td.append(x.get_text().replace('\n',''))
+            append_dict_tab(tableHeaders, td, usage)
+        else:
+            usage.append('error: not found')
 
-    # append usage data for this week
-    td=[]
-    for x in tableRows[0].find_all('td'):
-        td.append(x.get_text().replace('\n',''))
-    append_dict_tab(tableHeaders, td, usage)
+        # append max flow data for this week
+        td=[]
+        if bool(tableRows) and tableRows[1] != None:
+            for x in tableRows[1].find_all('td'):
+                td.append(x.get_text().replace('\n',''))
+            append_dict_tab(tableHeaders, td, maxFlow)
+        else:
+            maxFlow.append('error: not found')
 
-    # append max flow data for this week
-    td=[]
-    for x in tableRows[1].find_all('td'):
-        td.append(x.get_text().replace('\n',''))
-    append_dict_tab(tableHeaders, td, maxFlow)
+        # append flag data for this week
+        td=[]
+        if bool(tableRows) and tableRows[2] != None:
+            for x in tableRows[2].find_all('td'):
+                td.append(x.get_text().replace('\n',''))
+            append_dict_tab(tableHeaders, td, flags)
+        else:
+            flags.append('error: not found')
 
-    # append flag data for this week
-    td=[]
-    for x in tableRows[2].find_all('td'):
-        td.append(x.get_text().replace('\n',''))
-    append_dict_tab(tableHeaders, td, flags)
+        # append data from javascript charts/graphs
+        # hourly usage chart
+        if s.find('canvas',{'id':'hourlyWaterUsageChart'}) != None:
+            append_dict_js(s.find('canvas',{'id':'hourlyWaterUsageChart'})
+                            .find_next_sibling().text,usageChartHour)
+        else:
+            usageChartHour.append('data not populated')
 
-    # append data from javascript charts/graphs
-    # hourly usage chart
-    if s.find('canvas',{'id':'hourlyWaterUsageChart'}) != None:
-        append_dict_js(s.find('canvas',{'id':'hourlyWaterUsageChart'})
-                        .find_next_sibling().text,usageChartHour)
-    else:
-        usageChartHour.append('data not populated')
+        # append data from cap rem graph
+        if s.find('canvas',{'id':'remainingCapacityChart'}) != None:
+            append_dict_js(s.find('canvas',{'id':'remainingCapacityChart'})
+                            .find_next_sibling().text,capRemGraph)
+        else:
+            capRemGraph.append('data not populated')
 
-    # append data from cap rem graph
-    if s.find('canvas',{'id':'remainingCapacityChart'}) != None:
-        append_dict_js(s.find('canvas',{'id':'remainingCapacityChart'})
-                        .find_next_sibling().text,capRemGraph)
-    else:
-        capRemGraph.append('data not populated')
+        # append data from daily usage chart
+        if s.find('canvas',{'id':'dailyWaterUsageChart'}) != None:
+            append_dict_js(s.find('canvas',{'id':'dailyWaterUsageChart'})
+                            .find_next_sibling().text,usageChartDay)
+        else:
+            usageChartDay.append('data not populated')
 
-    # append data from daily usage chart
-    if s.find('canvas',{'id':'dailyWaterUsageChart'}) != None:
-        append_dict_js(s.find('canvas',{'id':'dailyWaterUsageChart'})
-                        .find_next_sibling().text,usageChartDay)
-    else:
-        usageChartDay.append('data not populated')
+        if s.find('table', class_='table table-striped table-sm dataTable no-footer regen-brine') != None:
+            # find rows in the regen data table
+            tableRows = s.find('table', class_='table table-striped table-sm dataTable no-footer regen-brine').find('tbody').find_all('tr')
+        
+            # find headers in the regen data table (dates ONLY)
+            tableHeaders = []
+            for x in s.find('table',class_='table table-striped table-sm dataTable no-footer regen-brine').find('thead').find('tr').find_all('td'):
+                tableHeaders.append(x.get_text())
+            
+            # append brine % data
+            td = []
+            for x in tableRows[0].find_all('td'):
+                td.append(x.get_text())
+            append_dict_tab(tableHeaders, td, brineTable)
 
-    # find rows in the regen data table
-    tableRows = s.find('table', class_='table table-striped table-sm dataTable no-footer regen-brine').find('tbody').find_all('tr')
-    
-    # find headers in the regen data table (dates ONLY)
-    tableHeaders = []
-    for x in s.find('table',class_='table table-striped table-sm dataTable no-footer regen-brine').find('thead').find('tr').find_all('td'):
-        tableHeaders.append(x.get_text())
-    
-    # append brine % data
-    td = []
-    for x in tableRows[0].find_all('td'):
-        td.append(x.get_text())
-    append_dict_tab(tableHeaders, td, brineTable)
+            # append ozone milliamps data
+            td = []
+            for x in tableRows[1].find_all('td'):
+                td.append(x.get_text())
+            append_dict_tab(tableHeaders, td, ozoneTable)
+        else:
+            brineTable.append('error: not found')
+            ozoneTable.append('error: not found')
 
-    # append ozone milliamps data
-    td = []
-    for x in tableRows[1].find_all('td'):
-        td.append(x.get_text())
-    append_dict_tab(tableHeaders, td, ozoneTable)
+    else: # performance page threw an error message, output error onto sheet
+        append_all('ERROR:', perfArrays)
+        append_all(s.find('p',{'id':'ErrorNumber'}).text, perfArrays)
+
+    # write performance data to CSV
+    write_to_csv(filePath, ',', perfArrays)
 
 '''
 scrape_consumer scrapes data from the consumer page of a given unit and appends it to corresponding 
@@ -473,11 +487,13 @@ scrape_consumer scrapes data from the consumer page of a given unit and appends 
 def scrape_consumer(s:bs):
     global mac
 
-    currFlowIcon.clear()
-    usageTodayIcon.clear()
-    peakFlowRateIcon.clear()
-    capRemIcon.clear()
-    rssi.clear()
+    # consumer page fields to scrape
+    currFlowIcon = []
+    usageTodayIcon = []
+    peakFlowRateIcon = []
+    capRemIcon = []
+    rssi = []
+    consumArrays = [currFlowIcon, usageTodayIcon, peakFlowRateIcon, capRemIcon, rssi]
 
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
@@ -492,23 +508,46 @@ def scrape_consumer(s:bs):
     capRemIcon.append('Capacity Remaining Until Regen')
     rssi.append('RSSI (Signal Strength)')
 
-    # append current flow rate
-    currFlowIcon.append(s.find('div',{'id':'divCurrentFlowRate'}).text)
+    # check for timeout
+    if s.find('form',{'id':'CatchAllForm'}) == None: # scrape data from consumer view
+        
+        if s.find('div',{'id':'divCurrentFlowRate'}) != None: # append current flow rate
+            currFlowIcon.append(s.find('div',{'id':'divCurrentFlowRate'}).text)
+        else: # append error message
+            currFlowIcon.append('error: not found')
+        
+        if s.find('div',{'id':'todaysWaterUsage'}).find('div',class_='stat-number font-weight-bold') != None: # append today's usage
+            usageTodayIcon.append(s.find('div',{'id':'todaysWaterUsage'}).find('div', class_='stat-number font-weight-bold').text)
+        else: # append error message
+            usageTodayIcon.append('error: not found')
+        
+        if s.find('div',{'id':'pastWeekPeakFlowRate'}).find('div', class_='stat-number font-weight-bold') != None: # append peak flow rate
+            peakFlowRateIcon.append(s.find('div',{'id':'pastWeekPeakFlowRate'}).find('div', class_='stat-number font-weight-bold').text)
+        else: # append error message
+            peakFlowRateIcon.append('error: not found')
 
-    # append today's usage
-    usageTodayIcon.append(s.find('div',{'id':'todaysWaterUsage'}).find('div', class_='stat-number font-weight-bold').text)
+        if s.find('div',{'id':'divCapacityRemaining'}) != None: # append capacity remaining
+            capRemIcon.append(s.find('div',{'id':'divCapacityRemaining'}).text)
+        else: # append error message
+            capRemIcon.append('error: not found')
 
-    # append peak flow rate
-    peakFlowRateIcon.append(s.find('div',{'id':'pastWeekPeakFlowRate'}).find('div', class_='stat-number font-weight-bold').text)
+        if s.find('img',{'id':'valveSignalStrengthImg'})['src'] != None: # check src format
+            sig = s.find('img',{'id':'valveSignalStrengthImg'})['src']
+            if sig.find('_') != None: # append rssi
+                sig = sig[sig.find('_')+1:-4].replace('_',': ').replace('bar', ' bar')
+                rssi.append(sig)
+            else: # append error message
+                rssi.append('error: not found')
+        else: # append error message
+            rssi.append('error: not found')
+    
+    else: # consumer page threw an error message, output error onto sheet
+        append_all('ERROR:', consumArrays)
+        append_all(s.find('p',{'id':'ErrorNumber'}).text, consumArrays)
 
-    # append capacity remaining
-    capRemIcon.append(s.find('div',{'id':'divCapacityRemaining'}).text)
-
-    # append RSSI
-    sig = s.find('img',{'id':'valveSignalStrengthImg'})['src']
-    sig = sig[sig.find('_')+1:-4].replace('_',': ').replace('bar', ' bar')
-    rssi.append(sig)
-
+    # write data to csv
+    write_to_csv(filePath, ',', consumArrays)
+    
 '''
 crawl_unit crawls the unit pages of a given mac address using a given webdriver object
 
@@ -527,16 +566,10 @@ def crawl_unit(addr: str, d: webdriver.Firefox):
     # create new html parser
     soup = bs(d.page_source, 'html.parser')
 
-    # check for timeout
-    if soup.find('form',{'id':'CatchAllForm'}) == None: # scrape data from performance view
-        scrape_perf(soup)
-        prog+=1.0
-        print(str("%.2f" % ((prog/total)*100.0)) + '%', end='\r')
-    else: # performance page threw an error message, output error onto sheet
-        append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), perfArrays)
-        append_all(addr, perfArrays)
-        append_all('ERROR:', perfArrays)
-        append_all(soup.find('p',{'id':'ErrorNumber'}).text, perfArrays)
+    # scrape performance page
+    scrape_perf(soup)
+    prog+=1.0
+    print(str("%.2f" % ((prog/total)*100.0)) + '%', end='\r')
         
     # driver at consumer page
     d.get(consumURL + addr)
@@ -551,22 +584,10 @@ def crawl_unit(addr: str, d: webdriver.Firefox):
         y+=1
     soup = bs(d.page_source,'html.parser')
 
-    # check for timeout
-    if soup.find('form',{'id':'CatchAllForm'}) == None: # scrape data from consumer view
-        scrape_consumer(soup)
-        prog+=1.0
-        print(str("%.2f" % ((prog/total)*100.0)) + '%', end='\r')
-    else: # consumer page threw an error message, output error onto sheet
-        append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
-        append_all(addr, consumArrays)
-        append_all('ERROR:', consumArrays)
-        append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
-
-    # write unit data to CSV
-    for x in perfArrays:
-        write_to_csv(filePath, ',', x)
-    for x in consumArrays:
-        write_to_csv(filePath, ',', x)
+    # scrape consumer page
+    scrape_consumer(soup)
+    prog+=1.0
+    print(str("%.2f" % ((prog/total)*100.0)) + '%', end='\r')
 
 # BEGIN CRAWLING
 try:
@@ -575,17 +596,8 @@ try:
         driver.get(homeURL)
     soup = bs(driver.page_source, 'html.parser')
 
-    # check for timeout
-    if soup.find('form',{'id':'CatchAllForm'}) == None: # scrape homepage data
-        scrape_home(soup)
-    else: # output error message
-        append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), homeArrays)
-        append_all('ERROR:', homeArrays)
-        append_all(soup.find('p',{'id':'ErrorNumber'}).text, homeArrays)
-    
-    # write homepage data to CSV
-    write_to_csv(filePath, ',', assignedOnline, assignedOffline, 
-        assignedInactive, unassigned, totalDealers)
+    # scrape homepage data
+    scrape_home(soup)
 
 except common.TimeoutException:
     traceback.print_exc()
