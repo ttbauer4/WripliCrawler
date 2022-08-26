@@ -10,6 +10,6 @@
 
     "login URL" : "<LOGIN URL>",
     "home URL" : "<HOME URL>",
-    "unit URL" : "<UNIT URL PREFIX (EXCLUDE MAC ADDRESS)>",
-    "consumer URL" : "<CONSUMER VIEW URL PREFIX>"
+    "performance URL" : "<PERFORMANCE VIEW URL PREFIX (EXCLUDE MAC ADDRESS)>",
+    "consumer URL" : "<CONSUMER VIEW URL PREFIX (EXCLUDE MAC ADDRESS)>"
 }
