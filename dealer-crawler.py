@@ -47,16 +47,16 @@ try:
 
         loginURL = credentials["login URL"]
         homeURL = credentials["home URL"]
-        unitURL = credentials["unit URL"]
+        perfURL = credentials["performance URL"]
         consumURL = credentials["consumer URL"]
 except:
     traceback.print_exc()
     print('\nEXCEPTION CAUGHT WHILE LOADING INFO FROM private.json. MAKE SURE:')
     print('  - private.json IS IN THE SAME FOLDER/DIRECTORY AS dealer-crawler')
     print('  - private.json IS PROPERLY FORMATTED (SEE https://www.w3schools.com/js/js_json_syntax.asp FOR MORE INFO)')
-    print('  - private.json CONTAINS THE FIELDS \"Email\", \"Password\", \"Mac Array\", \"File Name\", \"login URL\", \"home URL\", \"unit URL\", AND \"consumer URL\"\n')
+    print('  - private.json CONTAINS THE FIELDS \"Email\", \"Password\", \"Mac Array\", \"File Name\", \"login URL\", \"home URL\", \"performance URL\", AND \"consumer URL\"\n')
     cursor.show()
-    e = input('press \'Enter\' to exit.\n')
+    e = input('press \'Enter\' to exit or close this window.\n')
     if e != None:
         sys.exit()
 
@@ -82,7 +82,7 @@ def reset():
         traceback.print_exc()
         print('EXCEPTION CAUGHT ON RESET: ENSURE THAT ' + fileName + ' IS NOT OPEN ON YOUR COMPUTER\n')
         cursor.show()
-        e = input('press \'Enter\' to exit.\n')
+        e = input('press \'Enter\' to exit or close this window.\n')
         if e != None:
             sys.exit()
 
@@ -164,13 +164,17 @@ except:
     print('  - YOU HAVE INSTALLED MOZILLA FIREFOX FROM https://www.mozilla.org/en-US/firefox/new/')
     print('  - YOUR DEVICE IS CONNECTED TO THE INTERNET\n')
     cursor.show()
-    e = input('press \'Enter\' to exit.\n')
+    e = input('press \'Enter\' to exit or close this window.\n')
     if e != None:
         sys.exit()
 
 try:
     # initialize progress %
     print('0.00%', end='\r')
+
+    # initialize progress variables
+    prog = 0.0
+    total = 0.0
 
     # login to site
     driver.get(loginURL)
@@ -192,14 +196,14 @@ except common.TimeoutException:
     print('  - YOUR NETWORK CONNECTION')
     print('  - THAT ' + driver.current_url + ' IS NOT UNDER MAINTENANCE\n')
     cursor.show()
-    e = input('press \'Enter\' to exit.\n')
+    e = input('press \'Enter\' to exit or close this window.\n')
     if e != None:
         sys.exit()
 except:
     traceback.print_exc()
     print('EXCEPTION CAUGHT ON LOGIN: ENSURE PRIVATE.JSON CONTAINS THE ACCURATE LOGIN PAGE URL\n')
     cursor.show()
-    e = input('press \'Enter\' to exit.\n')
+    e = input('press \'Enter\' to exit or close this window.\n')
     if e != None:
         sys.exit()
 
@@ -228,11 +232,11 @@ def append_dict_tab(h: array, d: array, arr: array):
         arr.append('data not populated')
 
 '''
-append_dict_js creates a dictionary from javascript content found on the unit page 
-    by extracting corresponding "labels" and "data" fields from given text, then 
+append_dict_js creates a dictionary from javascript content found on the performance
+    page by extracting corresponding "labels" and "data" fields from given text, then 
     appends that dictionary to a given array
 
-:param script: text from within javascript tags on the unit page
+:param script: text from within javascript tags on the performance page
 :param arr: array to which the dictionary is appended
 '''
 def append_dict_js (script: str, arr: array):
@@ -262,7 +266,7 @@ def write_to_csv(path: str, delim: str, *args : array):
         traceback.print_exc()
         print('EXCEPTION CAUGHT WHILE TRYING TO WRITE TO ' + fileName + ', ENSURE THAT IT IS NOT OPEN ON YOUR COMPUTER\n')
         cursor.show()
-        e = input('press \'Enter\' to exit.\n')
+        e = input('press \'Enter\' to exit or close this window.\n')
         if e != None:
             sys.exit()
 
@@ -274,7 +278,7 @@ unassigned = []
 totalDealers = []
 homeArrays = [assignedOnline, assignedOffline, assignedInactive, unassigned, totalDealers]
 
-# unit page fields to scrape
+# performance page fields to scrape
 unitErrors = []
 totalUsage = []
 usage = []
@@ -285,7 +289,7 @@ capRemGraph = []
 usageChartDay = []
 brineTable = []
 ozoneTable = []
-unitArrays = [unitErrors, totalUsage, usage, maxFlow, flags, usageChartHour, capRemGraph, usageChartDay, brineTable, ozoneTable]
+perfArrays = [unitErrors, totalUsage, usage, maxFlow, flags, usageChartHour, capRemGraph, usageChartDay, brineTable, ozoneTable]
 
 # consumer view fields to scrape
 currFlowIcon = []
@@ -330,12 +334,14 @@ def scrape_home(s: bs):
     totalDealers.append(str(homeValues[4]))
 
 '''
-scrape_unit scrapes data from a given unit page and appends it to corresponding 
+scrape_perf scrapes data from a given unit's performance page and appends it to corresponding 
     arrays.
 
-:param s: a Beautiful Soup object with a unit page's source
+:param s: a Beautiful Soup object with a performance page's source
 '''
-def scrape_unit(s: bs):
+def scrape_perf(s: bs):
+    global mac
+
     unitErrors.clear()
     totalUsage.clear()
     usage.clear()
@@ -349,9 +355,9 @@ def scrape_unit(s: bs):
 
     # append timestamp, unit MAC address, and unit name
     curTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
-    append_all(curTime, unitArrays)
-    append_all(mac, unitArrays)
-    append_all(s.find('p',class_='font-weight-bold').text.strip(), unitArrays)
+    append_all(curTime, perfArrays)
+    append_all(mac, perfArrays)
+    append_all(s.find('p',class_='font-weight-bold').text.strip(), perfArrays)
 
     # append field labels
     unitErrors.append('Valve Status')
@@ -449,12 +455,14 @@ def scrape_unit(s: bs):
     append_dict_tab(tableHeaders, td, ozoneTable)
 
 '''
-scrape_consumer scrapes data from the consumer page of a given unit page and appends it to corresponding 
+scrape_consumer scrapes data from the consumer page of a given unit and appends it to corresponding 
     arrays.
 
 :param s: a Beautiful Soup object with a unit's consumer page source
 '''
 def scrape_consumer(s:bs):
+    global mac
+
     currFlowIcon.clear()
     usageTodayIcon.clear()
     peakFlowRateIcon.clear()
@@ -491,6 +499,65 @@ def scrape_consumer(s:bs):
     sig = sig[sig.find('_')+1:-4].replace('_',': ').replace('bar', ' bar')
     rssi.append(sig)
 
+'''
+crawl_unit crawls the unit pages of a given mac address using a given webdriver object
+
+:param addr: the mac address whose pages are to be scraped
+:param d: the webdriver to use when crawling the unit pages
+'''
+def crawl_unit(addr: str, d: webdriver.Firefox):
+    global prog, total
+
+    # update progress output
+    print(str("%.2f" % ((prog/total)*100.0)) + '%', end='\r')
+
+    # driver at performance page
+    d.get(perfURL + addr)
+ 
+    # create new html parser
+    soup = bs(d.page_source, 'html.parser')
+
+    # check for timeout
+    if soup.find('form',{'id':'CatchAllForm'}) == None: # scrape data from performance view
+        scrape_perf(soup)
+        prog+=1.0
+        print(str("%.2f" % ((prog/total)*100.0)) + '%', end='\r')
+    else: # performance page threw an error message, output error onto sheet
+        append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), perfArrays)
+        append_all(addr, perfArrays)
+        append_all('ERROR:', perfArrays)
+        append_all(soup.find('p',{'id':'ErrorNumber'}).text, perfArrays)
+        
+    # driver at consumer page
+    d.get(consumURL + addr)
+    
+    # wait for capacity remaining
+    cri = d.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+    cr = cri
+    y = 0
+    while (cri == cr or cr == '0') and y < 7:
+        time.sleep(1)
+        cr = d.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
+        y+=1
+    soup = bs(d.page_source,'html.parser')
+
+    # check for timeout
+    if soup.find('form',{'id':'CatchAllForm'}) == None: # scrape data from consumer view
+        scrape_consumer(soup)
+        prog+=1.0
+        print(str("%.2f" % ((prog/total)*100.0)) + '%', end='\r')
+    else: # consumer page threw an error message, output error onto sheet
+        append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
+        append_all(addr, consumArrays)
+        append_all('ERROR:', consumArrays)
+        append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
+
+    # write unit data to CSV
+    for x in perfArrays:
+        write_to_csv(filePath, ',', x)
+    for x in consumArrays:
+        write_to_csv(filePath, ',', x)
+
 # BEGIN CRAWLING
 try:
     # driver at homepage
@@ -499,10 +566,9 @@ try:
     soup = bs(driver.page_source, 'html.parser')
 
     # check for timeout
-    if soup.find('form',{'id':'CatchAllForm'}) == None:
-        # scrape homepage data
+    if soup.find('form',{'id':'CatchAllForm'}) == None: # scrape homepage data
         scrape_home(soup)
-    else:
+    else: # output error message
         append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), homeArrays)
         append_all('ERROR:', homeArrays)
         append_all(soup.find('p',{'id':'ErrorNumber'}).text, homeArrays)
@@ -517,238 +583,67 @@ except common.TimeoutException:
     print('  - YOUR NETWORK CONNECTION')
     print('  - THAT ' + driver.current_url + ' IS NOT UNDER MAINTENANCE\n')
     cursor.show()
-    e = input('press \'Enter\' to exit.\n')
+    e = input('press \'Enter\' to exit or close this window.\n')
     if e != None:
         sys.exit()
 except:
     traceback.print_exc()
     print('\nEXCEPTION CAUGHT WHILE SCRAPING HOME: ENSURE THAT THE LOGIN INFORMATION AND HOME PAGE URL IN PRIVATE.JSON ARE CORRECT\n')
     cursor.show()
-    e = input('press \'Enter\' to exit.\n')
+    e = input('press \'Enter\' to exit or close this window.\n')
     if e != None:
         sys.exit()
 
-# scrape unit data based on user input
-if i == '1': # get data from a random unit
-    try:
-        print(str("%.2f" % ((1.0/3.0)*100.0)) + '%', end='\r')
+try: # scrape unit data based on user input
 
-        # driver at random unit page
+    if i == '1': # get data from a random unit
+        prog = 1.0
+        total = 3.0
+
+        # get a random mac
         mac = secrets.choice(macArray)
-        driver.get(unitURL + mac)
-        soup = bs(driver.page_source,'html.parser')
 
-        # check for timeout
-        if soup.find('form',{'id':'CatchAllForm'}) == None:
-            # scrape data from unit page
-            scrape_unit(soup)
-            print(str("%.2f" % ((2.0/3.0)*100.0)) + '%', end='\r')
-        else:
-            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
-            append_all(mac, unitArrays)
-            append_all('ERROR:', unitArrays)
-            append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
+        # crawl the unit's pages
+        crawl_unit(mac, driver)
 
-        # driver at random consumer view page
-        driver.get(consumURL + mac)
-        
-        # wait for capacity remaining
-        cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
-        cr = cri
-        y = 0
-        while (cri == cr or cr == '0') and y < 7:
-            time.sleep(1)
-            cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
-            y+=1
-        
-        soup = bs(driver.page_source,'html.parser')
+    elif i == '2': # get data from all units
+        prog = 1.0
+        total = (len(macArray) * 2.0) + 1.0
 
-        # check for timeout
-        if soup.find('form',{'id':'CatchAllForm'}) == None:
-            # scrape data from unit page
-            scrape_consumer(soup)
-            print(str("%.2f" % ((3.0/3.0)*100.0)) + '%', end='\r')
-        else:
-            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
-            append_all(mac, consumArrays)
-            append_all('ERROR:', consumArrays)
-            append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
-
-        # write unit data to CSV
-        for x in unitArrays:
-            write_to_csv(filePath, ',', x)
-        for x in consumArrays:
-            write_to_csv(filePath, ',', x)
-        print()
-
-    except common.TimeoutException:
-        traceback.print_exc()
-        print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
-        print('  - YOUR NETWORK CONNECTION')
-        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY')
-        print('THEN RE-RUN THE APPLICATION\n')
-        cursor.show()
-        e = input('press \'Enter\' to exit.\n')
-        if e != None:
-            sys.exit()
-    except:
-        traceback.print_exc()
-        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
-        print('AT MAC ADDRESS: ' + mac)
-        print('AT URL: ' + driver.current_url + '\n')
-        cursor.show()
-        e = input('press \'Enter\' to exit.\n')
-        if e != None:
-            sys.exit()
-
-elif i == '2': # get data from all units
-    try:
-        p = 1.0
-        print(str("%.2f" % ((p/float(len(macArray) + 1.0))*100.0)) + '%', end='\r')
+        # crawl each unit's pages
         for x in macArray:
-            # driver at given unit page
             mac = x
-            driver.get(unitURL + mac)
-            soup = bs(driver.page_source,'html.parser')
+            crawl_unit(mac, driver)
 
-            # check for timeout
-            if soup.find('form',{'id':'CatchAllForm'}) == None:
-                # scrape data from unit page
-                scrape_unit(soup)
-                p+=0.5
-                print(str("%.2f" % ((p/float(len(macArray) + 1.0))*100.0)) + '%', end='\r')
-            else:
-                append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
-                append_all(mac, unitArrays)
-                append_all('ERROR:', unitArrays)
-                append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
-            
-            # driver at given consumer page
-            driver.get(consumURL + mac)
-            
-            # wait for capacity remaining
-            cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
-            cr = cri
-            y = 0
-            while (cri == cr or cr == '0') and y < 7:
-                time.sleep(1)
-                cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
-                y+=1
+    elif i == '3': # get data from a specific unit
+        prog = 1.0
+        total = 3.0
 
-            soup = bs(driver.page_source,'html.parser')
+        # crawl the unit's pages
+        crawl_unit(mac, driver)
 
-            # check for timeout
-            if soup.find('form',{'id':'CatchAllForm'}) == None:
-                # scrape data from consumer page
-                scrape_consumer(soup)
-                p+=0.5
-                print(str("%.2f" % ((p/float(len(macArray) + 1.0))*100.0)) + '%', end='\r')
-            else:
-                append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
-                append_all(mac, consumArrays)
-                append_all('ERROR:', consumArrays)
-                append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
+    else: # invalid command line argument
+        print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
 
-            # write unit data to CSV
-            for x in unitArrays:
-                write_to_csv(filePath, ',', x)
-            for x in consumArrays:
-                write_to_csv(filePath, ',', x)
-        print()
-
-    except common.TimeoutException:
-        traceback.print_exc()
-        print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
-        print('  - YOUR NETWORK CONNECTION')
-        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY')
-        print('THEN RE-RUN THE APPLICATION\n')
-        cursor.show()
-        e = input('press \'Enter\' to exit.\n')
-        if e != None:
-            sys.exit()
-    except:
-        traceback.print_exc()
-        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
-        print('AT MAC ADDRESS: ' + mac)
-        print('AT URL: ' + driver.current_url + '\n')
-        cursor.show()
-        e = input('press \'Enter\' to exit.\n')
-        if e != None:
-            sys.exit()
-
-elif i == '3': # get data from a specific unit
-    try:
-        print(str("%.2f" % ((1.0/3.0)*100.0)) + '%', end='\r')
-
-        # driver at given unit page
-        driver.get(unitURL + mac)
-        soup = bs(driver.page_source,'html.parser')
-
-        # check for timeout
-        if soup.find('form',{'id':'CatchAllForm'}) == None:
-            # scrape data from unit page
-            scrape_unit(soup)
-            print(str("%.2f" % ((2.0/3.0)*100.0)) + '%', end='\r')
-        else:
-            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), unitArrays)
-            append_all(mac, unitArrays)
-            append_all('ERROR:', unitArrays)
-            append_all(soup.find('p',{'id':'ErrorNumber'}).text, unitArrays)
-
-        # driver at given consumer page
-        driver.get(consumURL + mac)
-        
-        # wait for capacity remaining
-        cri = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
-        cr = cri
-        y = 0
-        while (cri == cr or cr == '0') and y < 7:
-            time.sleep(1)
-            cr = driver.find_element(By.XPATH, '//div[@id="divCapacityRemaining"]').text
-            y+=1
-
-        soup = bs(driver.page_source,'html.parser')
-
-        # check for timeout
-        if soup.find('form',{'id':'CatchAllForm'}) == None:
-            # scrape data from consumer page
-            scrape_consumer(soup)
-            print(str("%.2f" % ((3.0/3.0)*100.0)) + '%', end='\r')
-        else:
-            append_all((strftime("%Y-%m-%d %H:%M:%S", localtime())), consumArrays)
-            append_all(mac, consumArrays)
-            append_all('ERROR:', consumArrays)
-            append_all(soup.find('p',{'id':'ErrorNumber'}).text, consumArrays)
-
-        # write unit data to CSV
-        for x in unitArrays:
-            write_to_csv(filePath, ',', x)
-        for x in consumArrays:
-            write_to_csv(filePath, ',', x)
-        print()
-
-    except common.TimeoutException:
-        traceback.print_exc()
-        print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
-        print('  - YOUR NETWORK CONNECTION')
-        print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY')
-        print('THEN RE-RUN THE APPLICATION\n')
-        cursor.show()
-        e = input('press \'Enter\' to exit.\n')
-        if e != None:
-            sys.exit()
-    except:
-        traceback.print_exc()
-        print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
-        print('AT MAC ADDRESS: ' + mac)
-        print('AT URL: ' + driver.current_url + '\n')
-        cursor.show()
-        e = input('press \'Enter\' to exit.\n')
-        if e != None:
-            sys.exit()
-
-else: # invalid command line argument
-    print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
+except common.TimeoutException:
+    traceback.print_exc()
+    print('UNIT PAGE REACHED MAX LOAD TIME OF 60 SECONDS. PLEASE CHECK:')
+    print('  - YOUR NETWORK CONNECTION')
+    print('  - THAT THE UNIT PAGE FOR ' + mac + ' IS NOT UNDER MAINTENANCE AND IS FUNCTIONING PROPERLY')
+    print('THEN RE-RUN THE APPLICATION\n')
+    cursor.show()
+    e = input('press \'Enter\' to exit or close this window.\n')
+    if e != None:
+        sys.exit()
+except:
+    traceback.print_exc()
+    print('\nEXCEPTION CAUGHT WHILE SCRAPING UNIT')
+    print('AT MAC ADDRESS: ' + mac)
+    print('AT URL: ' + driver.current_url + '\n')
+    cursor.show()
+    e = input('press \'Enter\' to exit or close this window or close this window.\n')
+    if e != None:
+        sys.exit()
 
 try:
     # close the webdriver
