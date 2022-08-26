@@ -323,8 +323,18 @@ def scrape_home(s: bs):
     homeValues = []
 
     # scrape values from homepage and add to array
-    for x in s.find_all('h5'):
-        homeValues.append(str(x.text))
+    if len(s.find_all('h5')) >= 5:
+        for x in s.find_all('h5'):
+            if x != None:
+                homeValues.append(str(x.text))
+            else:
+                homeValues.append('error')  
+    else:
+        homeValues.append('error finding all homepage data')
+        homeValues.append('error finding all homepage data')
+        homeValues.append('error finding all homepage data')
+        homeValues.append('error finding all homepage data')
+        homeValues.append('error finding all homepage data')
     
     # append data from homepage
     assignedOnline.append(str(homeValues[0]))
