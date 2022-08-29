@@ -627,6 +627,7 @@ try: # scrape unit data based on user input
 
         # crawl the unit's pages
         crawl_unit(mac, driver)
+        print()
 
     elif i == '2': # get data from all units
         prog = 1.0
@@ -636,6 +637,7 @@ try: # scrape unit data based on user input
         for x in macArray:
             mac = x
             crawl_unit(mac, driver)
+        print()
 
     elif i == '3': # get data from a specific unit
         prog = 1.0
@@ -643,6 +645,7 @@ try: # scrape unit data based on user input
 
         # crawl the unit's pages
         crawl_unit(mac, driver)
+        print()
 
     else: # invalid command line argument
         print('INVALID COMMAND LINE ARGUMENT: UNABLE TO DETERMINE WHICH UNITS TO SCRAPE')
