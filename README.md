@@ -1,6 +1,13 @@
 # Wripli Crawler
 **_This program is designed to streamline the testing process and improve decision-making as it relates to the user experience of Wripli._**
 ****
+## VERSION 1.4
+  - Implemented 60 second webdriver timeout
+  - Improved exception outputs
+  - Improved outputs for unpopulated fields
+  - Improved code style and concision
+  - Fixed AttributeError bug
+  
 ## VERSION 1.3
   - Implemented private.json config file
   - Implemented ability to crawl consumer page
