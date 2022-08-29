@@ -9,7 +9,7 @@ __author__ = 'Trenton Bauer'
 __version__ = 'V1.4'
 __maintainer__ = 'Trenton Bauer'
 __contact__ = 'trenton.bauer@gmail.com'
-__status__ = 'Development'
+__status__ = 'Production'
 
 import sys, os
 import csv
